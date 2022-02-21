@@ -1,0 +1,54 @@
+edit.html Who has access System properties Type HTML Size 2 KB Storage used 2
+KBOwned by FPT University Location demo Owner Đặng Thái Sơn (FPL HN) Modified 15
+Feb 2022 by Đặng Thái Sơn (FPL HN) Opened 09:18 by me Created 15 Feb 2022 No
+description Viewers can download
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h2>Sửa</h2>
+    <form>
+      Username: <input type="text" name="username" id="" /> <br />
+      Email: <input type="email" name="email" /> <br />
+      <input type="hidden" name="id_user" value="3" />
+      <button type="button" id="btnUpdate">Update</button>
+    </form>
+    <script>
+      btnUpdate = document.querySelector("#btnUpdate");
+      btnUpdate.onclick = function () {
+        // sự kiện bấm nút
+        u = document.querySelector("input[name=username]").value;
+        e = document.querySelector("input[name=email]").value;
+        id_user = document.querySelector("input[name=id_user]").value;
+        // validate
+        if (u.length < 3) {
+          alert("cần nhập dữ liệu");
+          return false;
+        }
+
+        // gửi dữ liệu lên server
+        option_axios = {
+          url: "http://localhost:3000/users/" + id_user,
+          method: "put", // phương thức sửa
+          data: {
+            username: u,
+            email: e,
+          },
+        };
+
+        axios(option_axios).then(function (res) {
+          console.log(res);
+          // if(res.status == 201){
+          //     alert("Cập nhật thành công")
+          // }
+        });
+      };
+    </script>
+  </body>
+</html>

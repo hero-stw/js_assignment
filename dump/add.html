@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <form>
+      Username: <input type="text" name="username" id="" /> <br />
+      Email: <input type="email" name="email" /> <br />
+      <button type="button">Add</button>
+      
+    </form>
+    <script>
+      // viết sự kiện nút bấm
+      btn = document.querySelector("button");
+      btn.onclick = function () {
+        // sự kiện bấm nút
+        u = document.querySelector("input[name=username]").value;
+        e = document.querySelector("input[name=email]").value;
+        // validate
+        if (u.length < 3) {
+          alert("cần nhập dữ liệu");
+          return false;
+        }
+
+        // gửi dữ liệu lên server
+        option_axios = {
+          url: "http://localhost:3000/users",
+          method: "post",
+          data: {
+            username: u,
+            email: e,
+          },
+        };
+
+        axios(option_axios).then(function (res) {
+          console.log(res);
+          if (res.status == 201) {
+            alert("Thêm mới thành công");
+          }
+        });
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      tr {
+        height: 50px;
+      }
+      td {
+        padding: 1rem;
+      }
+      .controler {
+        margin-top: 1.5rem;
+      }
+      a {
+        text-decoration: unset;
+        color: black;
+        cursor: pointer;
+        border: 1px solid gray;
+        border-radius: 5px;
+        margin: 1rem 1rem 0 0;
+        padding: 0.5rem;
+        background-color: rgb(52, 148, 155);
+        font-weight: 600;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Users List</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fullname</th>
+          <th>UserName</th>
+          <th>Password</th>
+          <th>Group Id</th>
+        </tr>
+      </thead>
+      <tbody id="list-user"></tbody>
+    </table>
+    <div class="controler">
+      <a href="./addUser.html">Add User</a>
+      <a href="./addGroup.html">Add Group</a>
+    </div>
+    <script>
+      window.onload = function () {
+        fetch("http://localhost:3500/users?_expand=group")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            document.querySelector("#list-user").innerHTML = data
+              .map((item) => {
+                return /*html*/ `
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.username}</td>
+                            <td>${item.password}</td>
+                            <td>${item.group.name}</td>
+                        </tr>
+                    `;
+              })
+              .join("");
+          });
+      };
+    </script>
+  </body>
+</html>

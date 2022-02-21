@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+      form {
+        display: grid;
+        max-width: 300px;
+      }
+      button {
+        margin-top: 1rem;
+        background-color: rgb(48, 169, 169);
+        color: #fff;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding: 1rem;
+      }
+    </style>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>Add new User</h1>
+    <form>
+      Username <input type="text" id="usname" /> <br />
+      Password<input type="password" id="pass" /> <br />
+      Name <input type="text" id="fullname" /> <br />
+      Email <input type="email" id="email" /> <br />
+      Group Id
+      <select name="" id="groupId"></select>
+      <button type="button" id="addUser">Add User</button>
+    </form>
+    <script>
+      window.onload = function () {
+        fetch("http://localhost:3500/groups")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            document.querySelector("#groupId").innerHTML = data
+              .map((item) => {
+                return `
+                    <option value="${item.id}">${item.name}</option>
+                    `;
+              })
+              .join("");
+          });
+      };
+      const btn = document.querySelector("#addUser");
+      btn.onclick = () => {
+        let usName = document.querySelector("#usname").value;
+        let pwd = document.querySelector("#pass").value;
+        let fName = document.querySelector("#fullname").value;
+        let email = document.querySelector("#email").value;
+        let group = document.querySelector("#groupId").value;
+        axios({
+          url: "http://localhost:3500/users",
+          method: "post",
+          data: {
+            username: usName,
+            password: pwd,
+            name: fName,
+            email: email,
+            groupId: group,
+          },
+        }).then((res) => {
+          console.log(res);
+          alert("Add user successfully!");
+        });
+      };
+    </script>
+  </body>
+</html>

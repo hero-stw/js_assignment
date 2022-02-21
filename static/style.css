@@ -1,0 +1,21 @@
+.amado-pro-catagory {
+  height: 100% !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-rows: masonry;
+  grid-gap: 10px;
+}
+@supports (grid-template-rows: masonry) {
+  .list-masonry {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-gap: var(--grid-gap);
+    grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
+    grid-template-rows: masonry;
+  }
+}
+.single-products-catagory {
+  width: 100% !important;
+}

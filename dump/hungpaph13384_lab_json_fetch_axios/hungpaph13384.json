@@ -1,0 +1,46 @@
+{
+    "users": [
+        {
+          "username": "heropham",
+          "password": "12345678",
+          "name": "Hung",
+          "email": "namtaytest@qa.team",
+          "groupId": "1",
+          "id": 1
+        },
+        {
+          "username": "user2",
+          "password": "12345678",
+          "name": "Heroooooo",
+          "email": "16040582@vnu.edu.vn",
+          "groupId": "3",
+          "id": 2
+        }
+      ],
+      "groups": [
+        {
+          "name": "Group 1",
+          "id": 1
+        },
+        {
+          "name": "Group 2",
+          "id": 2
+        },
+        {
+          "name": "Group 3",
+          "id": 3
+        },
+        {
+          "name": "Group 4",
+          "id": 4
+        },
+        {
+          "name": "Group 555555",
+          "id": 5
+        },
+        {
+          "name": "Group 5555",
+          "id": 6
+        }
+      ]
+}

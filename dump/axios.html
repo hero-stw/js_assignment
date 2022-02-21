@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <ul id="list"></ul>
+    <ul id="pagination"></ul>
+    <script>
+      let params = new URLSearchParams(document.location.search);
+      let page = params.get("page"); // chỉ số trang hiện tại
+      let per_page = params.get("per_page"); //số lượng bản ghi 1 trang
+
+      var opt = {
+        url: "https://reqres.in/api/users",
+        method: "GET",
+        responseType: "json",
+      };
+      axios(opt)
+        .then((res) => {
+          console.log(res.data);
+          showData(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      function showData(response) {
+        console.log(response);
+        const list = document.querySelector("#list");
+        list.innerHTML = response.data
+          .map((item) => {
+            return /*html*/ `
+              <li>
+                 ${item.id}
+                 ${item.email}
+              </li>
+            `;
+          })
+          .join("");
+        li_page = "";
+        for (i = 1; i <= response.total_pages; i++) {
+          li_page +=
+            '<li><a href="?page=' +
+            i +
+            "&per_page=" +
+            per_page +
+            '">' +
+            i +
+            "</a></li>";
+        }
+        document.querySelector("ul#pagination").innerHTML = li_page;
+      }
+    </script>
+  </body>
+</html>
