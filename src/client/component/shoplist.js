@@ -2,8 +2,8 @@ import { getAll } from "../../../utils/api/product";
 
 const ShopList = {
     async render() {
-    const {data} = await getAll();
-    return /*html*/ `
+        const {data} = await getAll();
+        return /*html*/ `
             <div class="amado_product_area section-padding-100">
                 <div class="container-fluid">
 
@@ -106,7 +106,7 @@ const ShopList = {
                     </div>
                 </div>
             </div>
-    `
+    `;
     }
-}
+};
 export default ShopList;

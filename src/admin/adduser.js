@@ -1,5 +1,5 @@
-import AdminHeader from "./component/header"
-import AdminSideBar from "./component/sidebar"
+import AdminHeader from "./component/header";
+import AdminSideBar from "./component/sidebar";
 import axios from "axios";
 import { add } from "../../utils/api/user";
 import toastr from "toastr";
@@ -131,54 +131,54 @@ const AddUser = {
         </div>
 
             
-        `
+        `;
     },
     afterRender() {
         const formAdd = document.querySelector("#form-add-user");
         const imgPost = document.querySelector("#avatar");
         
         imgPost.addEventListener("change", (e) => {
-          const file = e.target.files[0];
+            const file = e.target.files[0];
           
-          const formData = new FormData();
+            const formData = new FormData();
           
-          formData.append("file", file);
-          formData.append("upload_preset", "fckljd3m");
+            formData.append("file", file);
+            formData.append("upload_preset", "fckljd3m");
     
-          axios({
-            url: "https://api.cloudinary.com/v1_1/ecma-assignment/image/upload",
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-formendcoded",
-            },
-            data: formData,
-          }).then((res) => {
-            document.querySelector('#preview-img').src = res.data.secure_url;
-            formAdd.addEventListener("submit", (e) => {
-              e.preventDefault();
-              var today = new Date();
-              var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-              var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-              var dateTime = date+' '+time;
-              add({
-                username: document.querySelector("#username").value,
-                password: document.querySelector("#password").value,
-                name: "",
-                avatar: res.data.secure_url,
-                role: document.querySelector("#role").value,
-                email: document.querySelector("#email").value,
-                phone: document.querySelector("#phone").value,
-                date : dateTime
-              })
-                .then((result) => {
-                  console.log(result.data);
-                  toastr.success("Add user successfully")
-                } )
-                .catch((error) => console.log(error));
+            axios({
+                url: "https://api.cloudinary.com/v1_1/ecma-assignment/image/upload",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-formendcoded",
+                },
+                data: formData,
+            }).then((res) => {
+                document.querySelector("#preview-img").src = res.data.secure_url;
+                formAdd.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    var today = new Date();
+                    var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    var dateTime = date+" "+time;
+                    add({
+                        username: document.querySelector("#username").value,
+                        password: document.querySelector("#password").value,
+                        name: "",
+                        avatar: res.data.secure_url,
+                        role: document.querySelector("#role").value,
+                        email: document.querySelector("#email").value,
+                        phone: document.querySelector("#phone").value,
+                        date : dateTime
+                    })
+                        .then((result) => {
+                            console.log(result.data);
+                            toastr.success("Add user successfully");
+                        } )
+                        .catch((error) => console.log(error));
+                });
             });
-          });
         });
-      },
+    },
     
-}
+};
 export default AddUser;

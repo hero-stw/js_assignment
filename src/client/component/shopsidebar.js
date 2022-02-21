@@ -92,8 +92,8 @@ const ShopSideBar = {
                     </div>
                 </div>
             </div>
-        `
+        `;
     } 
     
-}
+};
 export default ShopSideBar;

@@ -9,7 +9,7 @@ const NavDT = {
                     <li><a href="/shop">Shop</a></li>
                 </ul>
             </nav>
-        `
+        `;
     },
-}
+};
 export default NavDT;

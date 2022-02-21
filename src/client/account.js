@@ -3,15 +3,15 @@ import { update } from "../../utils/api/user";
 import Footer from "./component/footer";
 import NavBar from "./component/nav_mb";
 import NewsLetter from "./component/newsletter";
-import { countTotal } from "../../utils/api/interface"
-import toastr from 'toastr';
+import { countTotal } from "../../utils/api/interface";
+import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import axios from "axios";
 import { reRender } from "../../utils/api/interface";
 import Heading from "./component/header";
 const AccountPage = {
     async render() {
-        let id = JSON.parse(localStorage.getItem('user')).id;
+        let id = JSON.parse(localStorage.getItem("user")).id;
         const {data} = await get(id);
         return /*html*/ `
         <div class="main-content-wrapper d-flex clearfix">
@@ -75,8 +75,8 @@ const AccountPage = {
                                                     name="price"
                                                     id="phone"
                                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                    placeholder = "${data.phone ? data.phone : 'Please enter phone number!'}"
-                                                    value = "${data.phone ? data.phone : 'Please enter phone number!'}"
+                                                    placeholder = "${data.phone ? data.phone : "Please enter phone number!"}"
+                                                    value = "${data.phone ? data.phone : "Please enter phone number!"}"
                                                 />
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-3">
@@ -90,8 +90,8 @@ const AccountPage = {
                                                     name="name"
                                                     id="nameU"
                                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                    value = "${data.name ? data.name : 'Please enter name!'}"
-                                                    placeholder = "${data.name ? data.name : 'Please enter name!'}"
+                                                    value = "${data.name ? data.name : "Please enter name!"}"
+                                                    placeholder = "${data.name ? data.name : "Please enter name!"}"
                                                 />
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-3">
@@ -126,28 +126,28 @@ const AccountPage = {
         </div>
         ${NewsLetter.render()}
         ${Footer.render()}
-        `
+        `;
     },
     afterRender() {
-        let id = JSON.parse(localStorage.getItem('user')).id;
-        if(localStorage.getItem('user')) {
-            const email = document.querySelector('#emailname');
-            const logout = document.querySelector('#logout');
-            const avatar = document.querySelector('#avatarUser');
-            email.innerHTML = JSON.parse(localStorage.getItem('user')).email;
-            avatar.src = JSON.parse(localStorage.getItem('user')).avatar;
-            logout.addEventListener('click', function(){
-                localStorage.removeItem('user');
+        let id = JSON.parse(localStorage.getItem("user")).id;
+        if(localStorage.getItem("user")) {
+            const email = document.querySelector("#emailname");
+            const logout = document.querySelector("#logout");
+            const avatar = document.querySelector("#avatarUser");
+            email.innerHTML = JSON.parse(localStorage.getItem("user")).email;
+            avatar.src = JSON.parse(localStorage.getItem("user")).avatar;
+            logout.addEventListener("click", function(){
+                localStorage.removeItem("user");
                 reRender(Heading,"header");
-            })
+            });
         }
-        const formEdit = document.querySelector('#form-edit-pro');
+        const formEdit = document.querySelector("#form-edit-pro");
         const imgPost = document.querySelector("#product_thumb");
         const imgPreview = document.querySelector("#previewImage");
         let imgUploadedLink = "";
 
         imgPost.addEventListener("change", (e) => {
-            imgPreview.src = URL.createObjectURL(imgPost.files[0])
+            imgPreview.src = URL.createObjectURL(imgPost.files[0]);
         });
         formEdit.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -160,16 +160,16 @@ const AccountPage = {
                     url: "https://api.cloudinary.com/v1_1/ecma-assignment/image/upload",
                     method: "POST",
                     headers: {
-                    "Content-Type": "application/x-www-formendcoded",
+                        "Content-Type": "application/x-www-formendcoded",
                     },
                     data: formData,
                 });
-                imgUploadedLink = data.url
+                imgUploadedLink = data.url;
             }
             var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date+' '+time;
+            var dateTime = date+" "+time;
             update({
                 id, 
                 username: document.querySelector("#user-name").value,
@@ -180,14 +180,14 @@ const AccountPage = {
                 phone: document.querySelector("#phone").value,
                 date : dateTime
             })
-            .then((result) => {
-                console.log(result.data);
-                toastr.success("Edit information successfully");
-                localStorage.setItem('user', JSON.stringify(result.data));
-                reRender(Heading,"header");
-            } )
-            .catch((error) => console.log(error));
-        })
+                .then((result) => {
+                    console.log(result.data);
+                    toastr.success("Edit information successfully");
+                    localStorage.setItem("user", JSON.stringify(result.data));
+                    reRender(Heading,"header");
+                } )
+                .catch((error) => console.log(error));
+        });
     }
-}
+};
 export default AccountPage;

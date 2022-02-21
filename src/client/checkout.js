@@ -1,17 +1,17 @@
-import { countTotal } from "../../utils/api/interface"
-import Footer from "./component/footer"
-import NavBar from "./component/nav_mb"
-import NewsLetter from "./component/newsletter"
-import toastr from 'toastr';
+import { countTotal } from "../../utils/api/interface";
+import Footer from "./component/footer";
+import NavBar from "./component/nav_mb";
+import NewsLetter from "./component/newsletter";
+import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import { add, addOrderDetail } from "../../utils/api/order"
+import { add, addOrderDetail } from "../../utils/api/order";
 import Heading from "./component/header";
 
 const CheckoutPage = {
     render() {
         let cart = [];
-        if(localStorage.getItem('cart')){
-            cart = JSON.parse(localStorage.getItem('cart'));
+        if(localStorage.getItem("cart")){
+            cart = JSON.parse(localStorage.getItem("cart"));
         }
         return /*html*/ `
         <div class="main-content-wrapper d-flex clearfix">
@@ -100,8 +100,8 @@ const CheckoutPage = {
                     <h5>Items List</h5>
                     <ul class="summary-table">
                         ${cart.map(item => {
-                            if (item.quantity >=1)
-                            return /*html*/ `
+        if (item.quantity >=1)
+            return /*html*/ `
                                 <li class="mb-[1rem]">
                                     <div>
                                         <p class="mb-[0.5rem] text-[#fbb710]">${item.name}<span class="text-[.8rem] mb-0 ml-[1rem]">$${item.price}</span></p>
@@ -112,8 +112,8 @@ const CheckoutPage = {
                                       ${item.quantity}
                                     </div>
                                 </li>
-                            `
-                        }).join("")}
+                            `;
+    }).join("")}
                     </ul>
                 </div>
                 <div class="cart-summary mt-[3rem]">
@@ -153,7 +153,7 @@ const CheckoutPage = {
                                     >Paypal
                                 </label>
                             </div>
-                            <img class="ml-15" src="./static/img/core-img/paypal.png" alt=""/>
+                            <img class="ml-15" src="https://res.cloudinary.com/ecma-assignment/image/upload/v1645423995/paypal_mqejxk.png" alt=""/>
                         </div>
                     </div>
 
@@ -168,18 +168,18 @@ const CheckoutPage = {
         </div>
         ${NewsLetter.render()}
         ${Footer.render()}
-        `
+        `;
     },
     afterRender() {
-        document.querySelector('#btn-checkout').addEventListener('click', (e)=> {
+        document.querySelector("#btn-checkout").addEventListener("click", (e)=> {
             e.preventDefault();
             var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date+' '+time;
+            var dateTime = date+" "+time;
             let cart = [];
-            if(localStorage.getItem('cart')){
-                cart = JSON.parse(localStorage.getItem('cart'));
+            if(localStorage.getItem("cart")){
+                cart = JSON.parse(localStorage.getItem("cart"));
             }
             addOrderDetail({
                 item_list: cart,
@@ -191,9 +191,9 @@ const CheckoutPage = {
                 comment : document.querySelector("#comment").value,
                 payment : document.querySelector("input[name=payment]:checked").value,
             }).then((res)=>{
-                if(localStorage.getItem('user')) {
+                if(localStorage.getItem("user")) {
                     add({
-                        userId: JSON.parse(localStorage.getItem('user')).id,
+                        userId: JSON.parse(localStorage.getItem("user")).id,
                         orderDetailId: res.data.id,
                         status: "Pending",
                         total: countTotal(),
@@ -207,21 +207,21 @@ const CheckoutPage = {
                     });
                     // Add order billing email feature
                 }
-                toastr.success("Order successfully")
+                toastr.success("Order successfully");
             })
-            .catch((error) => console.log(error));
-        })
-        if(localStorage.getItem('user')) {
-            const email = document.querySelector('#emailname');
-            const logout = document.querySelector('#logout');
-            const avatar = document.querySelector('#avatarUser');
-            email.innerHTML = JSON.parse(localStorage.getItem('user')).email;
-            avatar.src = JSON.parse(localStorage.getItem('user')).avatar;
-            logout.addEventListener('click', function(){
-                localStorage.removeItem('user');
+                .catch((error) => console.log(error));
+        });
+        if(localStorage.getItem("user")) {
+            const email = document.querySelector("#emailname");
+            const logout = document.querySelector("#logout");
+            const avatar = document.querySelector("#avatarUser");
+            email.innerHTML = JSON.parse(localStorage.getItem("user")).email;
+            avatar.src = JSON.parse(localStorage.getItem("user")).avatar;
+            logout.addEventListener("click", function(){
+                localStorage.removeItem("user");
                 reRender(Heading,"header");
-            })
+            });
         }
     }
-}
+};
 export default CheckoutPage;

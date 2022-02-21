@@ -269,7 +269,7 @@ const AdminHeader = {
               </ul>
             </div>
           </header>
-        `
+        `;
     }
-}
+};
 export default AdminHeader;

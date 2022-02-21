@@ -11,7 +11,7 @@ const NavBar = {
                 <span></span><span></span><span></span>
                 </div>
             </div>
-        `
+        `;
     }
-}
+};
 export default NavBar;

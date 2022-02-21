@@ -1,18 +1,18 @@
-import Footer from "./component/footer"
-import NavBar from "./component/nav_mb"
-import NewsLetter from "./component/newsletter"
-import Search from "./component/search"
-import { countTotal, reRender } from "../../utils/api/interface"
-import { decreaseQuantity, increaseQuantity, removeItemInCart } from "../../utils/crud/cart"
-import toastr from 'toastr';
+import Footer from "./component/footer";
+import NavBar from "./component/nav_mb";
+import NewsLetter from "./component/newsletter";
+import Search from "./component/search";
+import { countTotal, reRender } from "../../utils/api/interface";
+import { decreaseQuantity, increaseQuantity, removeItemInCart } from "../../utils/crud/cart";
+import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import Heading from "./component/header"
+import Heading from "./component/header";
 
 const CartPage = {
     render() {
         let cart = [];
-        if(localStorage.getItem('cart')){
-            cart = JSON.parse(localStorage.getItem('cart'));
+        if(localStorage.getItem("cart")){
+            cart = JSON.parse(localStorage.getItem("cart"));
         }
         return /*html*/ `
           ${Search.render()}
@@ -38,8 +38,8 @@ const CartPage = {
                                   </thead>
                                   <tbody>
                                   ${cart.map(item => {
-                                      if (item.quantity >= 1)
-                                      return /*html*/`
+        if (item.quantity >= 1)
+            return /*html*/`
                                         <tr>
                                             <td class="cart_product_img">
                                                 <a href="#"><img src="${item.image}" alt="Product"></a>
@@ -61,8 +61,8 @@ const CartPage = {
                                                 </div>
                                             </td>
                                         </tr>
-                                        `
-                                  }).join("")}
+                                        `;
+    }).join("")}
                                   </tbody>
                               </table>
                           </div>
@@ -86,37 +86,37 @@ const CartPage = {
           </div>
           ${NewsLetter.render()}
           ${Footer.render()}
-        `
+        `;
     },
     afterRender() {
-        const btns = document.querySelectorAll('.btn-change');
+        const btns = document.querySelectorAll(".btn-change");
         btns.forEach(btn => {
             const id = btn.dataset.id;
             console.log(id);
-            btn.addEventListener('click', () => {
-                if(btn.classList.contains('btn-increase')){
+            btn.addEventListener("click", () => {
+                if(btn.classList.contains("btn-increase")){
                     increaseQuantity(id, () => reRender(CartPage, "#app"));
-                } else if(btn.classList.contains('btn-decrease')){
+                } else if(btn.classList.contains("btn-decrease")){
                     decreaseQuantity(id, () => reRender(CartPage, "#app"));
                 } else {
                     removeItemInCart(id, () => {
                         reRender(CartPage, "#app");
                         toastr.success("Remove item successfully!");
-                    })
+                    });
                 }
-            })
-        })
-        if(localStorage.getItem('user')) {
-            const email = document.querySelector('#emailname');
-            const logout = document.querySelector('#logout');
-            const avatar = document.querySelector('#avatarUser');
-            email.innerHTML = JSON.parse(localStorage.getItem('user')).email;
-            avatar.src = JSON.parse(localStorage.getItem('user')).avatar;
-            logout.addEventListener('click', function(){
-                localStorage.removeItem('user');
+            });
+        });
+        if(localStorage.getItem("user")) {
+            const email = document.querySelector("#emailname");
+            const logout = document.querySelector("#logout");
+            const avatar = document.querySelector("#avatarUser");
+            email.innerHTML = JSON.parse(localStorage.getItem("user")).email;
+            avatar.src = JSON.parse(localStorage.getItem("user")).avatar;
+            logout.addEventListener("click", function(){
+                localStorage.removeItem("user");
                 reRender(Heading,"header");
-            })
+            });
         }
     }
-}
+};
 export default CartPage;

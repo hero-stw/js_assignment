@@ -1,8 +1,8 @@
 import { get } from "../../utils/api/product";
 import { update } from "../../utils/api/product";
 import axios from "axios";
-import AdminHeader from "./component/header"
-import AdminSideBar from "./component/sidebar"
+import AdminHeader from "./component/header";
+import AdminSideBar from "./component/sidebar";
 
 const AdminEditPage = {
     async render(id) {
@@ -131,7 +131,7 @@ const AdminEditPage = {
                         </main>
                     </div>
             </div>
-        `
+        `;
     },
     afterRender(id) {
         // Fetch Data
@@ -139,11 +139,11 @@ const AdminEditPage = {
         // Edit handler
         const formAdd = document.querySelector("#form-edit-pro");
         const imgPost = document.querySelector("#product_thumb");
-        const imgPreview = document.querySelector('#previewImage');
+        const imgPreview = document.querySelector("#previewImage");
         let imgUploadedLink = "";
 
         imgPost.addEventListener("change", (e) => {
-            imgPreview.src = URL.createObjectURL(imgPost.files[0])
+            imgPreview.src = URL.createObjectURL(imgPost.files[0]);
         });
         formAdd.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -160,27 +160,27 @@ const AdminEditPage = {
                         "Content-Type": "application/x-www-formendcoded",
                     },
                     data: formData,
-                    })
+                });
                 imgUploadedLink = data.url;
             }
             var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date+' '+time;
+            var dateTime = date+" "+time;
             update({id,
-            name: document.querySelector("#product-name").value,
-            price: document.querySelector("#price").value,
-            image: imgUploadedLink ? imgUploadedLink : imgPreview.src,
-            desc: document.querySelector("#product-details").value,
-            cateProId: document.querySelector("#product-cate").value,
-            product_date : dateTime
+                name: document.querySelector("#product-name").value,
+                price: document.querySelector("#price").value,
+                image: imgUploadedLink ? imgUploadedLink : imgPreview.src,
+                desc: document.querySelector("#product-details").value,
+                cateProId: document.querySelector("#product-cate").value,
+                product_date : dateTime
             })
-            .then((result) => {
-                console.log(result.data);
-                toastr.success("Add product successfully")
-            } )
-            .catch((error) => console.log(error));
+                .then((result) => {
+                    console.log(result.data);
+                    toastr.success("Add product successfully");
+                } )
+                .catch((error) => console.log(error));
         });
     }
-}
+};
 export default AdminEditPage;

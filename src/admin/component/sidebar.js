@@ -150,7 +150,7 @@ const AdminSideBar = {
                 </div>
               </div>
             </aside>
-        `
+        `;
     }
-}
+};
 export default AdminSideBar;

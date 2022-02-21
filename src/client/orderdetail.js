@@ -1,18 +1,18 @@
-import { get } from "../../utils/api/order"
-import Footer from "./component/footer"
-import Heading from "./component/header"
-import NavBar from "./component/nav_mb"
-import NewsLetter from "./component/newsletter"
-import { countTotal } from "../../utils/api/interface"
-import toastr from 'toastr';
+import { get } from "../../utils/api/order";
+import Footer from "./component/footer";
+import Heading from "./component/header";
+import NavBar from "./component/nav_mb";
+import NewsLetter from "./component/newsletter";
+import { countTotal } from "../../utils/api/interface";
+import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 const OrderDetailClient = {
     async render(id) {
         const { data } = get(id);
         console.log(data);
         let cart = [];
-        if(localStorage.getItem('cart')){
-            cart = JSON.parse(localStorage.getItem('cart'));
+        if(localStorage.getItem("cart")){
+            cart = JSON.parse(localStorage.getItem("cart"));
         }
         return /*html*/ `
         <div class="main-content-wrapper d-flex clearfix">
@@ -99,8 +99,8 @@ const OrderDetailClient = {
                     <h5>Items List</h5>
                     <ul class="summary-table">
                         ${cart.map(item => {
-                            if (item.quantity >=1)
-                            return /*html*/ `
+        if (item.quantity >=1)
+            return /*html*/ `
                                 <li class="mb-[1rem]">
                                     <div>
                                         <p class="mb-[0.5rem] text-[#fbb710]">${item.name}<span class="text-[.8rem] mb-0 ml-[1rem]">$${item.price}</span></p>
@@ -111,8 +111,8 @@ const OrderDetailClient = {
                                       ${item.quantity}
                                     </div>
                                 </li>
-                            `
-                        }).join("")}
+                            `;
+    }).join("")}
                     </ul>
                 </div>
                 <div class="cart-summary mt-[3rem]">
@@ -167,7 +167,7 @@ const OrderDetailClient = {
         </div>
         ${NewsLetter.render()}
         ${Footer.render()}
-        `
+        `;
     }
-}
+};
 export default OrderDetailClient;

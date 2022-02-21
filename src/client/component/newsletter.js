@@ -28,6 +28,6 @@ const NewsLetter = {
             </div>
             </div>
         </section>
-        `
-    }}
-    export default NewsLetter;
+        `;
+    }};
+export default NewsLetter;

@@ -1,9 +1,9 @@
 import { get } from "../../utils/api/user";
 import { update } from "../../utils/api/user";
 import axios from "axios";
-import AdminHeader from "./component/header"
-import AdminSideBar from "./component/sidebar"
-import toastr from 'toastr';
+import AdminHeader from "./component/header";
+import AdminSideBar from "./component/sidebar";
+import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 const AdminEditUser = {
     async render(id) {
@@ -76,7 +76,7 @@ const AdminEditUser = {
                                                     name="price"
                                                     id="phone"
                                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                    placeholder = "${data.phone ? data.phone : 'Please enter phone number!'}"
+                                                    placeholder = "${data.phone ? data.phone : "Please enter phone number!"}"
                                                     required
                                                 />
                                                 </div>
@@ -91,7 +91,7 @@ const AdminEditUser = {
                                                     name="name"
                                                     id="nameU"
                                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                                    placeholder = "${data.name ? data.name : 'Please enter name!'}"
+                                                    placeholder = "${data.name ? data.name : "Please enter name!"}"
                                                     required
                                                 />
                                                 </div>
@@ -132,16 +132,16 @@ const AdminEditUser = {
                         </main>
                     </div>
             </div>
-        `
+        `;
     },
     afterRender(id) {
-        const formEdit = document.querySelector('#form-edit-pro');
+        const formEdit = document.querySelector("#form-edit-pro");
         const imgPost = document.querySelector("#product_thumb");
         const imgPreview = document.querySelector("#previewImage");
         let imgUploadedLink = "";
 
         imgPost.addEventListener("change", (e) => {
-            imgPreview.src = URL.createObjectURL(imgPost.files[0])
+            imgPreview.src = URL.createObjectURL(imgPost.files[0]);
         });
         formEdit.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -154,16 +154,16 @@ const AdminEditUser = {
                     url: "https://api.cloudinary.com/v1_1/ecma-assignment/image/upload",
                     method: "POST",
                     headers: {
-                    "Content-Type": "application/x-www-formendcoded",
+                        "Content-Type": "application/x-www-formendcoded",
                     },
                     data: formData,
                 });
-                imgUploadedLink = data.url
+                imgUploadedLink = data.url;
             }
             var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var dateTime = date+' '+time;
+            var dateTime = date+" "+time;
             update({
                 id, 
                 username: document.querySelector("#user-name").value,
@@ -175,12 +175,12 @@ const AdminEditUser = {
                 phone: document.querySelector("#phone").value,
                 date : dateTime
             })
-            .then((result) => {
-                console.log(result.data);
-                toastr.success("Edit user successfully")
-            } )
-            .catch((error) => console.log(error));
-        })
-}
-}
+                .then((result) => {
+                    console.log(result.data);
+                    toastr.success("Edit user successfully");
+                } )
+                .catch((error) => console.log(error));
+        });
+    }
+};
 export default AdminEditUser;

@@ -10,25 +10,25 @@ const Heading = {
                 </div>
                 <!-- Logo -->
                 <div class="logo">
-                <a href="index.html"><img src="../../static/img/core-img/logo.png" alt="" /></a>
+                <a href="index.html"><img src="https://res.cloudinary.com/ecma-assignment/image/upload/v1645423995/logo_qabqno.png" alt="" /></a>
                 </div>
                 <!-- Amado Nav -->
                 ${NavDT.render()}
                 
-                ${localStorage.getItem('user') ? /*html*/`
+                ${localStorage.getItem("user") ? /*html*/`
                 <div x-data="{ open: false }" class="w-64 flex justify-left items-center mb-[100px] mt-[3rem]">
                     <div @click="open = !open" class="relative border-b-4 border-transparent py-3" :class="{'transform transition duration-300 ': open}" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100">
                         <div class="flex justify-center items-center space-x-3 cursor-pointer">
                         <div class="w-12 h-12 rounded-full overflow-hidden border-2 dark:border-white border-gray-900">
-                            <img id="avatarUser" src="${JSON.parse(localStorage.getItem('user')).avatar}" alt="" class="w-full h-full object-cover">
+                            <img id="avatarUser" src="${JSON.parse(localStorage.getItem("user")).avatar}" alt="" class="w-full h-full object-cover">
                         </div>
                         <div class="font-semibold dark:text-white text-gray-900 text-sm">
-                            <div class="cursor-pointer" id="emailname">${JSON.parse(localStorage.getItem('user')).name}</div>
+                            <div class="cursor-pointer" id="emailname">${JSON.parse(localStorage.getItem("user")).name}</div>
                         </div>
                         </div>
                         <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute w-60 px-5 py-3 dark:bg-gray-800 bg-white rounded-lg shadow border dark:border-transparent mt-5">
                         <ul class="space-y-3 dark:text-white">
-                            ${JSON.parse(localStorage.getItem('user')).role == 1 ? /*html*/`
+                            ${JSON.parse(localStorage.getItem("user")).role == 1 ? /*html*/`
                                 <li class="font-medium">
                                     <a href="/admin/dashboard/" class="flex items-center text-sm transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700">
                                         <div class="mr-3">
@@ -41,7 +41,7 @@ const Heading = {
                                 </li>
                                 <hr class="dark:border-gray-700">
                             ` 
-                            : ""}
+        : ""}
                             
                             <li class="font-medium">
                                 <a href="/account" class="flex items-center text-sm transform transition-colors duration-200 border-r-4 border-transparent hover:border-indigo-700">
@@ -77,7 +77,7 @@ const Heading = {
                 <!-- Cart Menu -->
                 <div class="cart-fav-search mb-100">
                 <a href="/cart" class="cart-nav"
-                    ><img src="../../static/img/core-img/cart.png" alt="" /> Cart <span>(${countCart()})</span></a
+                    ><img src="https://res.cloudinary.com/ecma-assignment/image/upload/v1645423995/cart_xj4wyo.png" alt="" /> Cart <span>(${countCart()})</span></a
                 >
                 
                 <!--
@@ -85,7 +85,7 @@ const Heading = {
                     ><img src="../../static/img/core-img/favorites.png" alt="" /> Favourite</a
                 >-->
                 <a class="search-nav" id="search_nav"
-                    ><img src="../../static/img/core-img/search.png" alt="" /> Search</a>
+                    ><img src="https://res.cloudinary.com/ecma-assignment/image/upload/v1645423996/search_hzvopo.png" alt="" /> Search</a>
                 </div>
                 <!-- Social Button -->
                 <div class="social-info d-flex justify-content-between">
@@ -95,7 +95,7 @@ const Heading = {
                 <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                 </div>
             </div>
-        `
+        `;
     }
-}
+};
 export default Heading;

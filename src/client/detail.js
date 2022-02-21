@@ -1,17 +1,17 @@
-import { get } from "../../utils/api/product"
-import Footer from "./component/footer"
-import NavBar from "./component/nav_mb"
-import NewsLetter from "./component/newsletter"
-import toastr from "toastr"
+import { get } from "../../utils/api/product";
+import Footer from "./component/footer";
+import NavBar from "./component/nav_mb";
+import NewsLetter from "./component/newsletter";
+import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import { addToCart } from "../../utils/crud/cart"
-import { reRender } from "../../utils/api/interface"
-import Heading from "./component/header"
+import { addToCart } from "../../utils/crud/cart";
+import { reRender } from "../../utils/api/interface";
+import Heading from "./component/header";
 
 const ProductDetail = {
     async render(id) {
-        const {data} = await get(id)
-        console.log(data)
+        const {data} = await get(id);
+        console.log(data);
         return /*html*/ `
         <div class="main-content-wrapper d-flex clearfix">
             ${NavBar.render()}
@@ -102,30 +102,30 @@ const ProductDetail = {
         </div>
         ${NewsLetter.render()}
         ${Footer.render()}
-        `
+        `;
     },
     afterRender(id) {
         console.log(id);
-        const btnAddTocart = document.querySelector('#btnAddTocart');
-        const inputValue = document.querySelector('#qty');
-        btnAddTocart.addEventListener('click', async() => {
+        const btnAddTocart = document.querySelector("#btnAddTocart");
+        const inputValue = document.querySelector("#qty");
+        btnAddTocart.addEventListener("click", async() => {
             const {data} = await get(id);
             console.log(data);
             addToCart({...data, quantity: inputValue.value ? +inputValue.value : 1}, function(){
                 toastr.success("Add to cart successfully!");
-            })
-            reRender(ProductDetail, '#app');
-        })
-        if(localStorage.getItem('user')) {
-            const email = document.querySelector('#emailname');
-            const logout = document.querySelector('#logout');
-            const avatar = document.querySelector('#avatarUser');
-            email.innerHTML = JSON.parse(localStorage.getItem('user')).email;
-            avatar.src = JSON.parse(localStorage.getItem('user')).avatar;
-            logout.addEventListener('click', function(){
-                localStorage.removeItem('user');
+            });
+            reRender(ProductDetail, "#app");
+        });
+        if(localStorage.getItem("user")) {
+            const email = document.querySelector("#emailname");
+            const logout = document.querySelector("#logout");
+            const avatar = document.querySelector("#avatarUser");
+            email.innerHTML = JSON.parse(localStorage.getItem("user")).email;
+            avatar.src = JSON.parse(localStorage.getItem("user")).avatar;
+            logout.addEventListener("click", function(){
+                localStorage.removeItem("user");
                 reRender(Heading,"header");
-            })
+            });
         }
         // const {data} = get(id)
         // const imageList = document.querySelector("#image-list");
@@ -143,5 +143,5 @@ const ProductDetail = {
         //         `;
         // imageList.innerHTML = li_image;
     }
-}
+};
 export default ProductDetail;

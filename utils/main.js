@@ -26,29 +26,29 @@ const print = async (content, id) => {
 };
 router.on("/admin/*", () => {}, {
     before(done, match) {
-        if(JSON.parse(localStorage.getItem('user'))){
-            const role = JSON.parse(localStorage.getItem('user')).role;
+        if(JSON.parse(localStorage.getItem("user"))){
+            const role = JSON.parse(localStorage.getItem("user")).role;
             if(role == 1){
                 done();
             } else {
-                document.location.href="/"
+                document.location.href="/";
             }
         } else {
-            document.location.href="/"
+            document.location.href="/";
         }
       
       
     }
-})
+});
 router.on("/account/*", () => {}, {
     before(done, match) {
-        if(JSON.parse(localStorage.getItem('user'))){
-                done();
+        if(JSON.parse(localStorage.getItem("user"))){
+            done();
         } else {
-            document.location.href="/"
+            document.location.href="/";
         }
     }
-})
+});
 router.on ({
     "/" : ()=> {
         print(HomePage);
