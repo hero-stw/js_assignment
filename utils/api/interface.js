@@ -14,7 +14,7 @@ export const countCart = ()=> {
         sumCart += item.quantity;
     });
     return sumCart;
-}
+};
 export const countTotal = ()=> {
     let cart = [];
     let subtotal = 0;
@@ -25,4 +25,4 @@ export const countTotal = ()=> {
         subtotal += item.quantity * item.price;
     });
     return subtotal;
-}
+};

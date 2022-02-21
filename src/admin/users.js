@@ -4,6 +4,7 @@ import axios from "axios";
 import { remove } from "../../utils/api/user";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import { reRender} from "../../utils/api/interface";
 const Users = {
     render() {
         return /*html*/ `
@@ -114,7 +115,7 @@ const Users = {
                 </main>      
             </div>
         </div>
-        `
+        `;
     },
     afterRender() {
         // Get product
@@ -124,7 +125,7 @@ const Users = {
         console.log(page);
         console.log(per_page);
         axios({
-            url: "http://localhost:3500/users",
+            url: "https://brybdp.sse.codesandbox.io//users",
             method: "GET",
             responseType: "json",
         }).then((res)=> {
@@ -209,7 +210,7 @@ const Users = {
                     </td>
             </tr>
             
-            `).join("")
+            `).join("");
             // li_page = "";
             // for (i = 1; i <= response.total_pages; i++) {
             //   li_page +=
@@ -224,19 +225,19 @@ const Users = {
             // document.querySelector("ul#pagination").innerHTML = li_page;
         }
         // Delete Process
-        const buttons = document.querySelectorAll('.btn-delete');
+        const buttons = document.querySelectorAll(".btn-delete");
         buttons.forEach(btn => {
             const id = btn.dataset.id;
-            btn.addEventListener('click', ()=> {
-            const confirm = window.confirm("You want to delete this product");
-                    if(confirm){
-                        remove(id).then(() => {
-                            toastr.success("Delete successfull")
-                            reRender(Products, "#app");
-                        });
-                    }   
-            })
-        })
+            btn.addEventListener("click", ()=> {
+                const confirm = window.confirm("You want to delete this product");
+                if(confirm){
+                    remove(id).then(() => {
+                        toastr.success("Delete successfull");
+                        reRender(Users, "#app");
+                    });
+                }   
+            });
+        });
     }
-}
+};
 export default Users;

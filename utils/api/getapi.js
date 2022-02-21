@@ -1,21 +1,22 @@
+import axios from "axios";
 export const getCatePro = (catelist) => {
     axios({
-        url: "http://localhost:3500/catePros",
+        url: "https://brybdp.sse.codesandbox.io/catePros",
         method: "GET",
         responseType: "json",
     }).then((res)=> {
         document.querySelector(catelist).innerHTML = res.data.map(item => {
             return /*html*/ `
                 <option value="${item.id}">${item.name}</option>
-            `
-        }).join('');
+            `;
+        }).join("");
     }).catch((error)=> {
         console.log(error);
     });
-}
+};
 export const filterByCate = async (catename)=> {
     await axios({
-        url: "http://localhost:3500/products?_expand=catePro",
+        url: "https://brybdp.sse.codesandbox.io/products?_expand=catePro",
         method: "GET",
         responseType: "json",
     }).then((res)=> {
@@ -25,4 +26,4 @@ export const filterByCate = async (catename)=> {
     }).catch((error)=> {
         console.log(error);
     });
-}
+};

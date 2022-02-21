@@ -44,11 +44,11 @@ const ClientOrder = {
         </div>
         ${NewsLetter.render()}
         ${Footer.render()}
-        `
+        `;
     },
     afterRender() {
         axios({
-            url: "http://localhost:3500/orders?_expand=orderDetail",
+            url: "https://brybdp.sse.codesandbox.io//orders?_expand=orderDetail",
             method: "GET",
             responseType: "json",
         }).then((res)=> {
@@ -146,7 +146,7 @@ const ClientOrder = {
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     ${item.orderDetail.item_list.map((pro)=> {
-                        return /*html*/ `
+        return /*html*/ `
                         <tr>
                             <td class="px-9 py-5 whitespace-nowrap space-x-1 flex items-center">
                                 <div>
@@ -157,8 +157,8 @@ const ClientOrder = {
                             <td class="whitespace-nowrap text-gray-600 truncate">${pro.quantity}</td>
                             <td class="whitespace-nowrap text-gray-600 truncate"> ${pro.price} </td>
                         </tr>
-                        `
-                    }).join("")}
+                        `;
+    }).join("")}
                       
                       
                     </tbody>
@@ -190,18 +190,18 @@ const ClientOrder = {
               
             </tr>
             
-            `).join("")
+            `).join("");
         }
         window.onload = ()=> {
-            const btn = document.querySelectorAll('.open-invoice');
-            const trdrop = document.querySelectorAll('.dropdowntr');
+            const btn = document.querySelectorAll(".open-invoice");
+            const trdrop = document.querySelectorAll(".dropdowntr");
             btn.forEach((btn, index) => {
-                btn.addEventListener('click', ()=> {
-                    trdrop[index].classList.toggle('hidden');
-                })
-            })
-        }
+                btn.addEventListener("click", ()=> {
+                    trdrop[index].classList.toggle("hidden");
+                });
+            });
+        };
         
     }
-}
+};
 export default ClientOrder;

@@ -1,10 +1,10 @@
-import AdminHeader from "./component/header"
-import AdminSideBar from "./component/sidebar"
+import AdminHeader from "./component/header";
+import AdminSideBar from "./component/sidebar";
 import axios from "axios";
 import { add } from "../../utils/api/product";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import $ from 'jquery';
+import $ from "jquery";
 
 const AddProduct = {
     render() {
@@ -122,61 +122,61 @@ const AddProduct = {
                   </main>
               </div>
         </div>
-        `
+        `;
     },
     afterRender() {
         axios({
-            url: "http://localhost:3500/catePros",
+            url: "https://brybdp.sse.codesandbox.io//catePros",
             method: "GET",
             responseType: "json",
         }).then((res)=> {
-            document.querySelector('#product-cate').innerHTML = res.data.map(item => {
+            document.querySelector("#product-cate").innerHTML = res.data.map(item => {
                 return /*html*/ `
                     <option value="${item.id}">${item.name}</option>
-                `
-            }).join('');
+                `;
+            }).join("");
         }).catch((error)=> {
             console.log(error);
         });
         const formAdd = document.querySelector("#form-add-pro");
         const imgPost = document.querySelector("#product_thumb");
         imgPost.addEventListener("change", (e) => {
-          const file = e.target.files[0];
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append("upload_preset", "fckljd3m");
-          axios({
-            url: "https://api.cloudinary.com/v1_1/ecma-assignment/image/upload",
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-formendcoded",
-            },
-            data: formData,
-          }).then((res) => {
-            document.querySelector('#preview-img').src = res.data.secure_url;
-            formAdd.addEventListener("submit", (e) => {
-              e.preventDefault();
-              var today = new Date();
-              var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-              var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-              var dateTime = date+' '+time;
-              add({
-                name: document.querySelector("#product-name").value,
-                price: document.querySelector("#price").value,
-                image: res.data.secure_url,
-                desc: document.querySelector("#product-details").value,
-                cateProId: document.querySelector("#product-cate").value,
-                product_date : dateTime
-              })
-                .then((result) => {
-                  console.log(result.data);
-                  toastr.success("Add product successfully")
-                } )
-                .catch((error) => console.log(error));
+            const file = e.target.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "fckljd3m");
+            axios({
+                url: "https://api.cloudinary.com/v1_1/ecma-assignment/image/upload",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-formendcoded",
+                },
+                data: formData,
+            }).then((res) => {
+                document.querySelector("#preview-img").src = res.data.secure_url;
+                formAdd.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    var today = new Date();
+                    var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    var dateTime = date+" "+time;
+                    add({
+                        name: document.querySelector("#product-name").value,
+                        price: document.querySelector("#price").value,
+                        image: res.data.secure_url,
+                        desc: document.querySelector("#product-details").value,
+                        cateProId: document.querySelector("#product-cate").value,
+                        product_date : dateTime
+                    })
+                        .then((result) => {
+                            console.log(result.data);
+                            toastr.success("Add product successfully");
+                        } )
+                        .catch((error) => console.log(error));
+                });
             });
-          });
         });
-      },
+    },
     
-}
+};
 export default AddProduct;

@@ -115,7 +115,7 @@ const Products = {
                 </main>      
             </div>
         </div>
-        `
+        `;
     },
     afterRender() {
         // Get product
@@ -125,7 +125,7 @@ const Products = {
         console.log(page);
         console.log(per_page);
         axios({
-            url: "http://localhost:3500/products?_expand=catePro",
+            url: "https://brybdp.sse.codesandbox.io//products?_expand=catePro",
             method: "GET",
             responseType: "json",
         }).then((res)=> {
@@ -207,7 +207,7 @@ const Products = {
                     </td>
             </tr>
             
-            `).join("")
+            `).join("");
             // li_page = "";
             // for (i = 1; i <= response.total_pages; i++) {
             //   li_page +=
@@ -222,19 +222,19 @@ const Products = {
             // document.querySelector("ul#pagination").innerHTML = li_page;
         }
         // Delete Process
-        const buttons = document.querySelectorAll('.btn-delete');
+        const buttons = document.querySelectorAll(".btn-delete");
         buttons.forEach(btn => {
             const id = btn.dataset.id;
-            btn.addEventListener('click', ()=> {
-            const confirm = window.confirm("You want to delete this product");
-                    if(confirm){
-                        remove(id).then(() => {
-                            toastr.success("Delete successfull")
-                            reRender(Products, "#app");
-                        });
-                    }   
-            })
-        })
+            btn.addEventListener("click", ()=> {
+                const confirm = window.confirm("You want to delete this product");
+                if(confirm){
+                    remove(id).then(() => {
+                        toastr.success("Delete successfull");
+                        reRender(Products, "#app");
+                    });
+                }   
+            });
+        });
     }
-}
+};
 export default Products;

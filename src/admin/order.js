@@ -6,6 +6,7 @@ import AdminHeader from "./component/header";
 import AdminSideBar from "./component/sidebar";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import Products from "./index";
 
 const OrderListAdmin = {
     render() {
@@ -107,7 +108,7 @@ const OrderListAdmin = {
                 </main>      
             </div>
         </div>
-        `
+        `;
     },
     afterRender() {
         // Get product
@@ -117,7 +118,7 @@ const OrderListAdmin = {
         console.log(page);
         console.log(per_page);
         axios({
-            url: "http://localhost:3500/orders?_expand=orderDetail",
+            url: "https://brybdp.sse.codesandbox.io//orders?_expand=orderDetail",
             method: "GET",
             responseType: "json",
         }).then((res)=> {
@@ -218,7 +219,7 @@ const OrderListAdmin = {
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     ${item.orderDetail.item_list.map((pro)=> {
-                        return /*html*/ `
+        return /*html*/ `
                         <tr>
                             <td class="px-9 py-5 whitespace-nowrap space-x-1 flex items-center">
                                 <div>
@@ -229,8 +230,8 @@ const OrderListAdmin = {
                             <td class="whitespace-nowrap text-gray-600 truncate">${pro.quantity}</td>
                             <td class="whitespace-nowrap text-gray-600 truncate"> ${pro.price} </td>
                         </tr>
-                        `
-                    }).join("")}
+                        `;
+    }).join("")}
                       
                       
                     </tbody>
@@ -262,50 +263,50 @@ const OrderListAdmin = {
               
             </tr>
             
-            `).join("")
+            `).join("");
         }
         window.onload = ()=> {
-            const btn = document.querySelectorAll('.open-invoice');
-            const trdrop = document.querySelectorAll('.dropdowntr');
+            const btn = document.querySelectorAll(".open-invoice");
+            const trdrop = document.querySelectorAll(".dropdowntr");
             btn.forEach((btn, index) => {
-                btn.addEventListener('click', ()=> {
-                    trdrop[index].classList.toggle('hidden');
-                })
-            })
+                btn.addEventListener("click", ()=> {
+                    trdrop[index].classList.toggle("hidden");
+                });
+            });
             // Change Status
-            const status = document.querySelectorAll('.status');
+            const status = document.querySelectorAll(".status");
             status.forEach(stat => {
                 const id = stat.dataset.id;
-                stat.addEventListener('change', ()=> {
+                stat.addEventListener("change", ()=> {
                     console.log(stat.value);
                     const confirm = window.confirm("You want to change this order status?");
                     if(confirm){
                         update({
                             id,
                             "status": stat.value,
-                        })
-                        reRender(OrderListAdmin, '#app');
+                        });
+                        reRender(OrderListAdmin, "#app");
                     }  
-                })
-            })
+                });
+            });
 
             // Delete Process
-            const buttons = document.querySelectorAll('.btn-delete');
+            const buttons = document.querySelectorAll(".btn-delete");
             buttons.forEach(btn => {
                 const id = btn.dataset.id;
-                btn.addEventListener('click', ()=> {
-                const confirm = window.confirm("You want to delete this product?");
-                        if(confirm){
-                            remove(id).then(() => {
-                                toastr.success("Delete successfull")
-                                reRender(Products, "#app");
-                            });
-                        }   
-                })
-            })
-        }
+                btn.addEventListener("click", ()=> {
+                    const confirm = window.confirm("You want to delete this product?");
+                    if(confirm){
+                        remove(id).then(() => {
+                            toastr.success("Delete successfull");
+                            reRender(Products, "#app");
+                        });
+                    }   
+                });
+            });
+        };
         
         
     }
-}
+};
 export default OrderListAdmin;
