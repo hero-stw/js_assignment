@@ -1,4 +1,4 @@
-import { getAll } from "../../utils/api/menu"
+import { getAll } from "../../utils/api/menu";
 import AdminHeader from "./component/header";
 import AdminSideBar from "./component/sidebar";
 
@@ -64,7 +64,7 @@ const MenuEdit = {
                                                         value = "${item.url}"
                                                     />
                                                 </div>
-                                                `
+                                                `;
                                             }).join("")}
                                                 
                                                 
@@ -86,7 +86,7 @@ const MenuEdit = {
                         </main>
                     </div>
             </div>
-        `
+        `;
     }
-}
+};
 export default MenuEdit;

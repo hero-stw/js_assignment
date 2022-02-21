@@ -34,7 +34,7 @@ const ShopPage = {
         let params = window.location.pathname;
         console.log(params);
         axios({
-            url: "https://brybdp.sse.codesandbox.io//menus",
+            url: "https://brybdp.sse.codesandbox.io/menus",
             method: "GET",
             responseType: "json",
         }).then((res)=> {
