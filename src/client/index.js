@@ -1,9 +1,9 @@
-import Footer from "./component/footer";
-import NavBar from "./component/nav_mb";
-import NewsLetter from "./component/newsletter";
-import ProductList from "./productlist";
-import Search from "./component/search";
-import Heading from "./component/header";
+import Footer from "./component/Footer";
+import NavBar from "./component/NavMobile";
+import NewsLetter from "./component/NewsLetter";
+import ProductList from "./component/ProductList";
+import Search from "./component/Search";
+import Heading from "./component/Header";
 import axios from "axios";
 import { reRender } from "../../utils/api/interface";
 

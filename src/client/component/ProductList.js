@@ -1,4 +1,4 @@
-import { getAll } from "../../utils/api/product";
+import { getAll } from "../../../utils/api/product";
 
 const ProductList = {
   async render() {

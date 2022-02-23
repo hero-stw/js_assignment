@@ -1,4 +1,4 @@
-import NavDT from "./nav_dt";
+import NavDT from "./NavDesktop";
 import { countCart } from "../../../utils/api/interface";
 const Heading = { 
     render() {

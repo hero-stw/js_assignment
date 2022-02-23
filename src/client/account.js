@@ -1,14 +1,14 @@
 import { get } from "../../utils/api/user";
 import { update } from "../../utils/api/user";
-import Footer from "./component/footer";
-import NavBar from "./component/nav_mb";
-import NewsLetter from "./component/newsletter";
+import Footer from "./component/Footer";
+import NavBar from "./component/NavMobile";
+import NewsLetter from "./component/Newsletter";
 import { countTotal } from "../../utils/api/interface";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import axios from "axios";
 import { reRender } from "../../utils/api/interface";
-import Heading from "./component/header";
+import Heading from "./component/Header";
 const AccountPage = {
     async render() {
         let id = JSON.parse(localStorage.getItem("user")).id;

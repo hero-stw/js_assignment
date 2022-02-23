@@ -1,8 +1,8 @@
 import { get } from "../../utils/api/order";
-import Footer from "./component/footer";
-import Heading from "./component/header";
-import NavBar from "./component/nav_mb";
-import NewsLetter from "./component/newsletter";
+import Footer from "./component/Footer";
+import Heading from "./component/Header";
+import NavBar from "./component/NavMobile";
+import NewsLetter from "./component/NewsLetter";
 import { countTotal } from "../../utils/api/interface";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";

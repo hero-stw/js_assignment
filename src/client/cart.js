@@ -1,12 +1,12 @@
-import Footer from "./component/footer";
-import NavBar from "./component/nav_mb";
-import NewsLetter from "./component/newsletter";
-import Search from "./component/search";
+import Footer from "./component/Footer";
+import NavBar from "./component/NavMobile";
+import NewsLetter from "./component/NewsLetter";
+import Search from "./component/Search";
 import { countTotal, reRender } from "../../utils/api/interface";
 import { decreaseQuantity, increaseQuantity, removeItemInCart } from "../../utils/crud/cart";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import Heading from "./component/header";
+import Heading from "./component/Header";
 
 const CartPage = {
     render() {

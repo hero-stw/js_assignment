@@ -1,12 +1,12 @@
 import { get } from "../../utils/api/product";
-import Footer from "./component/footer";
-import NavBar from "./component/nav_mb";
-import NewsLetter from "./component/newsletter";
+import Footer from "./component/Footer";
+import NavBar from "./component/NavMobile";
+import NewsLetter from "./component/NewsLetter";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { addToCart } from "../../utils/crud/cart";
 import { reRender } from "../../utils/api/interface";
-import Heading from "./component/header";
+import Heading from "./component/Header";
 
 const ProductDetail = {
     async render(id) {

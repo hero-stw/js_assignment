@@ -1,11 +1,11 @@
 import { countTotal } from "../../utils/api/interface";
-import Footer from "./component/footer";
-import NavBar from "./component/nav_mb";
-import NewsLetter from "./component/newsletter";
+import Footer from "./component/Footer";
+import NavBar from "./component/NavMobile";
+import NewsLetter from "./component/Newsletter";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { add, addOrderDetail } from "../../utils/api/order";
-import Heading from "./component/header";
+import Heading from "./component/Header";
 
 const CheckoutPage = {
     render() {
