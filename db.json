@@ -146,6 +146,18 @@
       "name": "Stool",
       "status": 1,
       "date": "2021/08/21"
+    },
+    {
+      "name": "AVC",
+      "status": "1",
+      "date": "2022-2-22 13:37:25",
+      "id": 6
+    },
+    {
+      "name": "ABC",
+      "status": "0",
+      "date": "2022-2-22 13:38:10",
+      "id": 7
     }
   ],
   "brands": [
@@ -191,6 +203,17 @@
       "password": "$2a$10$FHk2kYuuYzcxIfEH9Ogn2eroYcgWZ3yniMUt8rr3O/5xBegYdzdyq",
       "phone": "Not have yet",
       "date": "2022-2-21 12:18:10"
+    },
+    {
+      "id": 3,
+      "username": "hello@google.com",
+      "email": "hello@google.com",
+      "name": "hero",
+      "role": "1",
+      "avatar": "https://res.cloudinary.com/ecma-assignment/image/upload/v1645508294/Jsadvanced/G%E1%BB%ADi_Trang_fh6gdl.jpg",
+      "password": "$2a$10$drt37lMCVmFd7OQmOAK2X.UJ02CPK9DNIJO5YyI0bt6IRUUzM7o8K",
+      "phone": "0987654321",
+      "date": "2022-2-22 12:39:16"
     }
   ],
   "orders": [

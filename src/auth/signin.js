@@ -1,7 +1,7 @@
 import { signin } from "../../utils/api/user";
 const SignIn = {
-    render() {
-        return /*html*/ `
+  render() {
+    return /*html*/ `
         <section class="flex flex-col md:flex-row h-screen items-center">
 
         <div class="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
@@ -57,29 +57,28 @@ const SignIn = {
       
       </section>
         
-        `
-    },
-    afterRender() {
-      const formSignin = document.querySelector("#formSignin");
-      formSignin.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        try {
-            // call api
-          const { data } = await signin({
-              email: document.querySelector("#email").value,
-              password: document.querySelector("#password").value,
-          });
-          localStorage.setItem('user', JSON.stringify(data.user))
-          if(data.user.id == 1){
-              document.location.href="/admin/dashboard"
-          } else {
-              document.location.href="/"
-          }
-        } catch (error) {
-            console.log(error.response.data)
+        `;
+  },
+  afterRender() {
+    const formSignin = document.querySelector("#formSignin");
+    formSignin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      try {
+        // call api
+        const { data } = await signin({
+          email: document.querySelector("#email").value,
+          password: document.querySelector("#password").value,
+        });
+        localStorage.setItem("user", JSON.stringify(data.user));
+        if (data.user.id == 1) {
+          document.location.href = "/admin/dashboard";
+        } else {
+          document.location.href = "/";
         }
-        
-      });
-    },
-}
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    });
+  },
+};
 export default SignIn;

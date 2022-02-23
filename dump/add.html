@@ -12,7 +12,6 @@
       Username: <input type="text" name="username" id="" /> <br />
       Email: <input type="email" name="email" /> <br />
       <button type="button">Add</button>
-      
     </form>
     <script>
       // viết sự kiện nút bấm
@@ -29,7 +28,7 @@
 
         // gửi dữ liệu lên server
         option_axios = {
-          url: "https://brybdp.sse.codesandbox.io/users",
+          url: "http://localhost:3500/users",
           method: "post",
           data: {
             username: u,

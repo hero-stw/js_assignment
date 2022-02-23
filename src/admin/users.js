@@ -4,16 +4,14 @@ import axios from "axios";
 import { remove } from "../../utils/api/user";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import { reRender} from "../../utils/api/interface";
+import { reRender } from "../../utils/api/interface";
 const Users = {
-    render() {
-        return /*html*/ `
-        
+  render() {
+    return /*html*/ `
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
             ${AdminSideBar.render()}
             <div class="flex flex-col flex-1">
                 ${AdminHeader.render()}
-                
                 <main class="h-full pb-16 overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
                          <div class="flex justify-between">
@@ -116,30 +114,33 @@ const Users = {
             </div>
         </div>
         `;
-    },
-    afterRender() {
-        // Get product
-        let params = new URLSearchParams(document.location.search);
-        let page = params.get("page"); 
-        let per_page = params.get("per_page");
-        console.log(page);
-        console.log(per_page);
-        axios({
-            url: "https://brybdp.sse.codesandbox.io//users",
-            method: "GET",
-            responseType: "json",
-        }).then((res)=> {
-            showData(res.data);
-        }).catch((error)=> {
-            console.log(error);
-        });
-        function showData(response) {
-            const list = document.querySelector("#product-list");
-            list.innerHTML = response.map((item)=> /*html*/ `
+  },
+  afterRender() {
+    // Get product
+    let params = new URLSearchParams(document.location.search);
+    let page = params.get("page");
+    let per_page = params.get("per_page");
+    console.log(page);
+    console.log(per_page);
+    axios({
+      url: "http://localhost:3500/users",
+      method: "GET",
+      responseType: "json",
+    })
+      .then((res) => {
+        showData(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    function showData(response) {
+      const list = document.querySelector("#product-list");
+      list.innerHTML = response
+        .map(
+          (item) => /*html*/ `
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                            <!-- Avatar with inset shadow -->
                             <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                             <img
                                 class="object-cover w-full h-full rounded-full"
@@ -166,7 +167,7 @@ const Users = {
                         <span
                             class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                         >
-                        ${item.role==1 ? "Admin": "User"}
+                        ${item.role == 1 ? "Admin" : "User"}
                         </span>
                     </td>
                     <td class="px-4 py-3 text-sm">${item.phone}</td>
@@ -210,34 +211,36 @@ const Users = {
                     </td>
             </tr>
             
-            `).join("");
-            // li_page = "";
-            // for (i = 1; i <= response.total_pages; i++) {
-            //   li_page +=
-            //     '<li><a href="?page=' +
-            //     i +
-            //     "&per_page=" +
-            //     per_page +
-            //     '">' +
-            //     i +
-            //     "</a></li>";
-            // }
-            // document.querySelector("ul#pagination").innerHTML = li_page;
-        }
-        // Delete Process
-        const buttons = document.querySelectorAll(".btn-delete");
-        buttons.forEach(btn => {
-            const id = btn.dataset.id;
-            btn.addEventListener("click", ()=> {
-                const confirm = window.confirm("You want to delete this product");
-                if(confirm){
-                    remove(id).then(() => {
-                        toastr.success("Delete successfull");
-                        reRender(Users, "#app");
-                    });
-                }   
-            });
-        });
+            `
+        )
+        .join("");
+      // li_page = "";
+      // for (i = 1; i <= response.total_pages; i++) {
+      //   li_page +=
+      //     '<li><a href="?page=' +
+      //     i +
+      //     "&per_page=" +
+      //     per_page +
+      //     '">' +
+      //     i +
+      //     "</a></li>";
+      // }
+      // document.querySelector("ul#pagination").innerHTML = li_page;
     }
+    // Delete Process
+    const buttons = document.querySelectorAll(".btn-delete");
+    buttons.forEach((btn) => {
+      const id = btn.dataset.id;
+      btn.addEventListener("click", () => {
+        const confirm = window.confirm("You want to delete this product");
+        if (confirm) {
+          remove(id).then(() => {
+            toastr.success("Delete successfull");
+            reRender(Users, "#app");
+          });
+        }
+      });
+    });
+  },
 };
 export default Users;

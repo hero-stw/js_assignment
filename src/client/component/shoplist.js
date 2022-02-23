@@ -1,9 +1,8 @@
 import { getAll } from "../../../utils/api/product";
-
 const ShopList = {
-    async render() {
-        const {data} = await getAll();
-        return /*html*/ `
+  async render() {
+    const { data } = await getAll();
+    return /*html*/ `
             <div class="amado_product_area section-padding-100">
                 <div class="container-fluid">
 
@@ -47,7 +46,9 @@ const ShopList = {
                     </div>
 
                     <div class="row">
-                        ${data.map((pro)=>/*html*/ `
+                        ${data
+                          .map(
+                            (pro) => /*html*/ `
                             <!-- Single Product Area -->
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6">
                                 
@@ -87,7 +88,9 @@ const ShopList = {
                                     </div>
                                 
                             </div>
-                        `).join("")}
+                        `
+                          )
+                          .join("")}
                         
                     </div>
 
@@ -107,6 +110,6 @@ const ShopList = {
                 </div>
             </div>
     `;
-    }
+  },
 };
 export default ShopList;

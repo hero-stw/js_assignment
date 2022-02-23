@@ -1,79 +1,15 @@
 const ShopSideBar = {
-    render() {
-        return /*html*/ `
+  render() {
+    return /*html*/ `
             <div class="shop_sidebar_area">
 
                 <div class="widget catagory mb-50">
-                    <!-- Widget Title -->
                     <h6 class="widget-title mb-30">Catagories</h6>
-
-                    <!--  Catagories  -->
                     <div class="catagories-menu">
                         <ul id="catelist">
-                        <!--
-                            <li class="active"><a href="#">Chairs</a></li>
-                            <li><a href="#">Beds</a></li>
-                            <li><a href="#">Accesories</a></li>
-                            <li><a href="#">Furniture</a></li>
-                            <li><a href="#">Home Deco</a></li>
-                            <li><a href="#">Dressings</a></li>
-                            <li><a href="#">Tables</a></li>-->
                         </ul>
                     </div>
                 </div>
-
-                <!-- ##### Single Widget ##### 
-                <div class="widget brands mb-50">
-                    <!-- Widget Title 
-                    <h6 class="widget-title mb-30">Brands</h6>
-
-                    <div class="widget-desc">
-                    
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="amado">
-                            <label class="form-check-label" for="amado">Amado</label>
-                        </div>
-                    
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="ikea">
-                            <label class="form-check-label" for="ikea">Ikea</label>
-                        </div>
-                    
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="furniture">
-                            <label class="form-check-label" for="furniture">Furniture Inc</label>
-                        </div>
-                    
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="factory">
-                            <label class="form-check-label" for="factory">The factory</label>
-                        </div>
-                    
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="artdeco">
-                            <label class="form-check-label" for="artdeco">Artdeco</label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- ##### Single Widget ##### 
-                <div class="widget color mb-50">
-                    <!-- Widget Title 
-                    <h6 class="widget-title mb-30">Color</h6>
-
-                    <div class="widget-desc">
-                        <ul class="d-flex">
-                            <li><a href="#" class="color1"></a></li>
-                            <li><a href="#" class="color2"></a></li>
-                            <li><a href="#" class="color3"></a></li>
-                            <li><a href="#" class="color4"></a></li>
-                            <li><a href="#" class="color5"></a></li>
-                            <li><a href="#" class="color6"></a></li>
-                            <li><a href="#" class="color7"></a></li>
-                            <li><a href="#" class="color8"></a></li>
-                        </ul>
-                    </div>
-                </div>-->
 
                 <!-- ##### Single Widget ##### -->
                 <div class="widget price mb-50">
@@ -93,7 +29,6 @@ const ShopSideBar = {
                 </div>
             </div>
         `;
-    } 
-    
+  },
 };
 export default ShopSideBar;
