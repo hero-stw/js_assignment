@@ -25,8 +25,6 @@ const HomePage = {
         `;
   },
   afterRender() {
-    let params = window.location.pathname;
-    console.log(params);
     axios({
       url: "http://localhost:3500/menus",
       method: "GET",
@@ -40,6 +38,7 @@ const HomePage = {
       });
     function showData(response) {
       const list = document.querySelector("#menu-list");
+      let params = window.location.pathname;
       list.innerHTML = response
         .map((item) => /*html*/ {
           if (params.search(item.title.toLowerCase))
@@ -54,6 +53,12 @@ const HomePage = {
       document
         .querySelector("#search-container")
         .classList.toggle("search-wrapper-on");
+    });
+    const searchClose = document.querySelector(".search-close");
+    searchClose.addEventListener("click", function () {
+      document
+        .querySelector("#search-container")
+        .classList.remove("search-wrapper-on");
     });
     const amadoMobNav = document.querySelector(".amado-navbar-toggler");
     const navClose = document.querySelector(".nav-close");
@@ -74,6 +79,36 @@ const HomePage = {
         reRender(Heading, "header");
       });
     }
+    // Search
+    var searchInput = document.querySelector("#search");
+    var searchRes = document.querySelector("#search-result");
+    searchInput.addEventListener("keyup", () => {
+      axios({
+        url: "http://localhost:3500/products?q=" + searchInput.value,
+        method: "GET",
+        responseType: "json",
+      })
+        .then((res) => {
+          searchRes.innerHTML = res.data
+            .map((item) => {
+              return /*html*/ `
+            <li class="search-res-item pt-[2rem] max-w-[300px] min-w-[300px]">
+              <a href="/products/${item.id}" class="overflow-hidden flex items-center gap-[1rem]">
+                <img src="${item.image}" alt="" class="search-res-thumb w-[100px] h-[100px] object-cover">
+                <div class="text-left">
+                  <h4 class="title">${item.name}</h4>
+                  <p class="search-price">$${item.price}</p>
+                </div>
+              </a>
+            </li>
+            `;
+            })
+            .join("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   },
 };
 export default HomePage;

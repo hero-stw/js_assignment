@@ -1,7 +1,7 @@
 const Search = {
-    render() {
-        return /*html*/`
-        <div class="search-wrapper section-padding-100">
+  render() {
+    return /*html*/ `
+        <div class="search-wrapper section-padding-100 overflow-hidden">
             <div class="search-close">
             <i class="fa fa-close" aria-hidden="true"></i>
             </div>
@@ -20,7 +20,7 @@ const Search = {
                         <img src="../../static/img/core-img/search.png" alt="" />
                     </button>
                     </form>
-                    <ul id="search-result">
+                    <ul id="search-result" class="flex gap-[1rem] items-center space-evenly overflow-x-scroll">
                         
                     </ul>
                 </div>
@@ -31,6 +31,6 @@ const Search = {
         </div>
         
         `;
-    },
+  },
 };
 export default Search;

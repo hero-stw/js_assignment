@@ -9,11 +9,16 @@ import "toastr/build/toastr.min.css";
 import axios from "axios";
 import { reRender } from "../../utils/api/interface";
 import Heading from "./component/Header";
+import $ from "jquery";
+import Search from "./component/Search";
 const AccountPage = {
     async render() {
         let id = JSON.parse(localStorage.getItem("user")).id;
         const {data} = await get(id);
         return /*html*/ `
+        <div id="search-container">
+        ${Search.render()}
+        </div>
         <div class="main-content-wrapper d-flex clearfix">
           ${NavBar.render()}
           <header>
@@ -188,6 +193,28 @@ const AccountPage = {
                 } )
                 .catch((error) => console.log(error));
         });
+        $(document).ready(function () {
+            var amadoSearch = $(".search-nav");
+            var searchClose = $(".search-close");
+      
+            amadoSearch.on("click", function () {
+              $("#app").toggleClass("search-wrapper-on");
+            });
+      
+            searchClose.on("click", function () {
+              $("#app").removeClass("search-wrapper-on");
+            });
+            var amadoMobNav = $(".amado-navbar-toggler");
+            var navClose = $(".nav-close");
+      
+            amadoMobNav.on("click", function () {
+              $(".header-area").toggleClass("bp-xs-on");
+            });
+      
+            navClose.on("click", function () {
+              $(".header-area").removeClass("bp-xs-on");
+            });
+          });
     }
 };
 export default AccountPage;

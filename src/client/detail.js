@@ -7,12 +7,17 @@ import "toastr/build/toastr.min.css";
 import { addToCart } from "../../utils/crud/cart";
 import { reRender } from "../../utils/api/interface";
 import Heading from "./component/Header";
+import Search from "./component/Search";
+import $ from "jquery";
 
 const ProductDetail = {
     async render(id) {
         const {data} = await get(id);
         console.log(data);
         return /*html*/ `
+        <div id="search-container">
+        ${Search.render()}
+        </div>
         <div class="main-content-wrapper d-flex clearfix">
             ${NavBar.render()}
             <header>
@@ -127,21 +132,28 @@ const ProductDetail = {
                 reRender(Heading,"header");
             });
         }
-        // const {data} = get(id)
-        // const imageList = document.querySelector("#image-list");
-        // var li_image = "";
-        // for(let i= 0; i < data.album.length; i++) 
-        //     if (i==0) 
-        //         li_image += `
-        //         <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(${data.image});">
-        //         </li>
-        //         `;
-        //      else 
-        //         li_image += `
-        //         <li data-target="#product_details_slider" data-slide-to="${i}" style="background-image: url(${data.album[i-1]});">
-        //         </li>
-        //         `;
-        // imageList.innerHTML = li_image;
+        $(document).ready(function () {
+            var amadoSearch = $(".search-nav");
+            var searchClose = $(".search-close");
+      
+            amadoSearch.on("click", function () {
+              $("#app").toggleClass("search-wrapper-on");
+            });
+      
+            searchClose.on("click", function () {
+              $("#app").removeClass("search-wrapper-on");
+            });
+            var amadoMobNav = $(".amado-navbar-toggler");
+            var navClose = $(".nav-close");
+      
+            amadoMobNav.on("click", function () {
+              $(".header-area").toggleClass("bp-xs-on");
+            });
+      
+            navClose.on("click", function () {
+              $(".header-area").removeClass("bp-xs-on");
+            });
+          });    
     }
 };
 export default ProductDetail;

@@ -7,7 +7,7 @@ import { decreaseQuantity, increaseQuantity, removeItemInCart } from "../../util
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import Heading from "./component/Header";
-
+import $ from "jquery";
 const CartPage = {
     render() {
         let cart = [];
@@ -15,7 +15,9 @@ const CartPage = {
             cart = JSON.parse(localStorage.getItem("cart"));
         }
         return /*html*/ `
-          ${Search.render()}
+        <div id="search-container">
+        ${Search.render()}
+        </div>
           <div class="main-content-wrapper d-flex clearfix">
             ${NavBar.render()}
             ${Heading.render()}
@@ -117,6 +119,28 @@ const CartPage = {
                 reRender(Heading,"header");
             });
         }
+        $(document).ready(function () {
+            var amadoSearch = $(".search-nav");
+            var searchClose = $(".search-close");
+      
+            amadoSearch.on("click", function () {
+              $("#app").toggleClass("search-wrapper-on");
+            });
+      
+            searchClose.on("click", function () {
+              $("#app").removeClass("search-wrapper-on");
+            });
+            var amadoMobNav = $(".amado-navbar-toggler");
+            var navClose = $(".nav-close");
+      
+            amadoMobNav.on("click", function () {
+              $(".header-area").toggleClass("bp-xs-on");
+            });
+      
+            navClose.on("click", function () {
+              $(".header-area").removeClass("bp-xs-on");
+            });
+          });
     }
 };
 export default CartPage;

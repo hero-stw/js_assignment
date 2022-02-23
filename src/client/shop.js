@@ -1,15 +1,15 @@
+import Heading from "./component/Header";
 import Footer from "./component/Footer";
 import NavBar from "./component/NavMobile";
 import NewsLetter from "./component/NewsLetter";
 import Search from "./component/Search";
 import { get } from "../../utils/api/product";
-import toastr from "toastr";
-import "toastr/build/toastr.min.css";
 import { addToCart } from "../../utils/crud/cart";
 import { reRender } from "../../utils/api/interface";
 import $ from "jquery";
 import axios from "axios";
-import Heading from "./component/Header";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 const ShopPage = {
   render() {
     return /*html*/ `
@@ -110,8 +110,6 @@ const ShopPage = {
         `;
   },
   afterRender() {
-    let params = window.location.pathname;
-    console.log(params);
     axios({
       url: "http://localhost:3500/products",
       method: "GET",
@@ -136,6 +134,7 @@ const ShopPage = {
       });
     function showData(response) {
       const list = document.querySelector("#menu-list");
+      let params = window.location.pathname;
       list.innerHTML = response
         .map((item) => /*html*/ {
           if (params.includes(item.title.toLowerCase))
@@ -211,7 +210,8 @@ const ShopPage = {
       .then((res) => {
         document.querySelector("#catelist").innerHTML = res.data
           .map((item, index) => {
-            if (index == 0)
+            if(item.status !=0) {
+              if (index == 0)
               return /*html*/ `
                     <li class="cateitem active"><a href="#">${item.name}</a></li>
                 `;
@@ -219,6 +219,7 @@ const ShopPage = {
               return /*html*/ `
                     <li class="cateitem"><a href="#">${item.name}</a></li>
                 `;
+            }
           })
           .join("");
           filter(res.data);
@@ -240,7 +241,7 @@ const ShopPage = {
         reRender(Heading, "header");
       });
     }
-    window.onload = function () {
+    $(document).ready(function () {
       let cateitem = document.querySelectorAll(".cateitem");
       console.log(cateitem);
       $(".slider-range-price").each(function () {
@@ -289,7 +290,7 @@ const ShopPage = {
       navClose.on("click", function () {
         $(".header-area").removeClass("bp-xs-on");
       });
-    };
+    });
   },
 };
 export default ShopPage;

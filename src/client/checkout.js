@@ -6,7 +6,8 @@ import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { add, addOrderDetail } from "../../utils/api/order";
 import Heading from "./component/Header";
-
+import Search from "./component/Search";
+import $ from "jquery";
 const CheckoutPage = {
     render() {
         let cart = [];
@@ -14,6 +15,9 @@ const CheckoutPage = {
             cart = JSON.parse(localStorage.getItem("cart"));
         }
         return /*html*/ `
+        <div id="search-container">
+        ${Search.render()}
+        </div>
         <div class="main-content-wrapper d-flex clearfix">
           ${NavBar.render()}
           <header>
@@ -222,6 +226,28 @@ const CheckoutPage = {
                 reRender(Heading,"header");
             });
         }
+        $(document).ready(function () {
+            var amadoSearch = $(".search-nav");
+            var searchClose = $(".search-close");
+      
+            amadoSearch.on("click", function () {
+              $("#app").toggleClass("search-wrapper-on");
+            });
+      
+            searchClose.on("click", function () {
+              $("#app").removeClass("search-wrapper-on");
+            });
+            var amadoMobNav = $(".amado-navbar-toggler");
+            var navClose = $(".nav-close");
+      
+            amadoMobNav.on("click", function () {
+              $(".header-area").toggleClass("bp-xs-on");
+            });
+      
+            navClose.on("click", function () {
+              $(".header-area").removeClass("bp-xs-on");
+            });
+          });
     }
 };
 export default CheckoutPage;
