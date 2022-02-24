@@ -231,23 +231,23 @@ const CheckoutPage = {
             var searchClose = $(".search-close");
       
             amadoSearch.on("click", function () {
-              $("#app").toggleClass("search-wrapper-on");
+                $("#app").toggleClass("search-wrapper-on");
             });
       
             searchClose.on("click", function () {
-              $("#app").removeClass("search-wrapper-on");
+                $("#app").removeClass("search-wrapper-on");
             });
             var amadoMobNav = $(".amado-navbar-toggler");
             var navClose = $(".nav-close");
       
             amadoMobNav.on("click", function () {
-              $(".header-area").toggleClass("bp-xs-on");
+                $(".header-area").toggleClass("bp-xs-on");
             });
       
             navClose.on("click", function () {
-              $(".header-area").removeClass("bp-xs-on");
+                $(".header-area").removeClass("bp-xs-on");
             });
-          });
+        });
     }
 };
 export default CheckoutPage;

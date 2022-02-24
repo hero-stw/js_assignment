@@ -4,8 +4,8 @@ import NewsLetter from "./component/NewsLetter";
 import axios from "axios";
 import Heading from "./component/Header";
 const ClientOrder = {
-  render() {
-    return /*html*/ `
+    render() {
+        return /*html*/ `
         <div class="main-content-wrapper d-flex clearfix">
           ${NavBar.render()}
           <header>
@@ -45,26 +45,26 @@ const ClientOrder = {
         ${NewsLetter.render()}
         ${Footer.render()}
         `;
-  },
-  afterRender() {
-    axios({
-      url: "http://localhost:3500/orders?_expand=orderDetail",
-      method: "GET",
-      responseType: "json",
-    })
-      .then((res) => {
-        showData(res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    function showData(response) {
-      const list = document.querySelector("#order-list");
+    },
+    afterRender() {
+        axios({
+            url: "http://localhost:3500/orders?_expand=orderDetail",
+            method: "GET",
+            responseType: "json",
+        })
+            .then((res) => {
+                showData(res.data);
+                console.log(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        function showData(response) {
+            const list = document.querySelector("#order-list");
 
-      list.innerHTML = response
-        .map(
-          (item) => /*html*/ `
+            list.innerHTML = response
+                .map(
+                    (item) => /*html*/ `
             <tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="py-3 px-6 text-left whitespace-nowrap">
                     <div class="flex items-center">
@@ -84,8 +84,8 @@ const ClientOrder = {
                 </td>
                 <td class="py-3 px-6 text-center">
                      <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">${
-                       item.status
-                     }</span> 
+    item.status
+}</span> 
                 </td>
                 <td class="py-3 px-6 text-center">
                     <div class="flex item-center justify-center">
@@ -120,8 +120,8 @@ const ClientOrder = {
                           <div>
                             <p class="font-medium text-sm text-gray-400"> Billed To </p>
                             <p> ${item.orderDetail.firstname} ${
-            item.orderDetail.lastname
-          }</p>
+    item.orderDetail.lastname
+}</p>
                             <p> ${item.orderDetail.email} </p>
                             <p> ${item.orderDetail.phone} </p>
                           </div>
@@ -154,8 +154,8 @@ const ClientOrder = {
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     ${item.orderDetail.item_list
-                      .map((pro) => {
-                        return /*html*/ `
+        .map((pro) => {
+            return /*html*/ `
                         <tr>
                             <td class="px-9 py-5 whitespace-nowrap space-x-1 flex items-center">
                                 <div>
@@ -167,8 +167,8 @@ const ClientOrder = {
                             <td class="whitespace-nowrap text-gray-600 truncate"> ${pro.price} </td>
                         </tr>
                         `;
-                      })
-                      .join("")}
+        })
+        .join("")}
                       
                       
                     </tbody>
@@ -190,8 +190,8 @@ const ClientOrder = {
                           <p class="font-bold text-black text-lg"> Amount Due </p>
                         </div>
                         <p class="font-bold text-black text-lg"> $${
-                          item.total
-                        } </p>
+    item.total
+} </p>
                       </div>
                     </div>
                   </div>
@@ -203,18 +203,18 @@ const ClientOrder = {
             </tr>
             
             `
-        )
-        .join("");
-    }
-    window.onload = () => {
-      const btn = document.querySelectorAll(".open-invoice");
-      const trdrop = document.querySelectorAll(".dropdowntr");
-      btn.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-          trdrop[index].classList.toggle("hidden");
-        });
-      });
-    };
-  },
+                )
+                .join("");
+        }
+        window.onload = () => {
+            const btn = document.querySelectorAll(".open-invoice");
+            const trdrop = document.querySelectorAll(".dropdowntr");
+            btn.forEach((btn, index) => {
+                btn.addEventListener("click", () => {
+                    trdrop[index].classList.toggle("hidden");
+                });
+            });
+        };
+    },
 };
 export default ClientOrder;

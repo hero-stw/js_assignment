@@ -9,8 +9,8 @@ import "toastr/build/toastr.min.css";
 import Products from "./index";
 
 const OrderListAdmin = {
-  render() {
-    return /*html*/ `
+    render() {
+        return /*html*/ `
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
             ${AdminSideBar.render()}
             <div class="flex flex-col flex-1">
@@ -109,31 +109,31 @@ const OrderListAdmin = {
             </div>
         </div>
         `;
-  },
-  afterRender() {
+    },
+    afterRender() {
     // Get product
-    let params = new URLSearchParams(document.location.search);
-    let page = params.get("page");
-    let per_page = params.get("per_page");
-    console.log(page);
-    console.log(per_page);
-    axios({
-      url: "http://localhost:3500/orders?_expand=orderDetail",
-      method: "GET",
-      responseType: "json",
-    })
-      .then((res) => {
-        showData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    function showData(response) {
-      const list = document.querySelector("#order-list");
+        let params = new URLSearchParams(document.location.search);
+        let page = params.get("page");
+        let per_page = params.get("per_page");
+        console.log(page);
+        console.log(per_page);
+        axios({
+            url: "http://localhost:3500/orders?_expand=orderDetail",
+            method: "GET",
+            responseType: "json",
+        })
+            .then((res) => {
+                showData(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        function showData(response) {
+            const list = document.querySelector("#order-list");
 
-      list.innerHTML = response
-        .map(
-          (item) => /*html*/ `
+            list.innerHTML = response
+                .map(
+                    (item) => /*html*/ `
             <tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="py-3 px-6 text-left whitespace-nowrap">
                     <div class="flex items-center">
@@ -153,21 +153,21 @@ const OrderListAdmin = {
                 </td>
                 <td class="py-3 px-6 text-center">
                     <select data-id="${item.id}" name="" class="${
-            item.status === "Pending"
-              ? "bg-orange-200 text-orange-600"
-              : item.status === "In Progress"
-              ? "bg-yellow-200 text-yellow-600"
-              : "bg-green-200 text-green-600"
-          } px-3 text-xs py-[0.5rem] status" value="${item.status}">
+    item.status === "Pending"
+        ? "bg-orange-200 text-orange-600"
+        : item.status === "In Progress"
+            ? "bg-yellow-200 text-yellow-600"
+            : "bg-green-200 text-green-600"
+} px-3 text-xs py-[0.5rem] status" value="${item.status}">
                         <option value="Pending" ${
-                          item.status === "Pending" ? "selected" : ""
-                        }>Pending</option>
+    item.status === "Pending" ? "selected" : ""
+}>Pending</option>
                         <option value="In Progress" ${
-                          item.status === "In Progress" ? "selected" : ""
-                        }>In Progress</option>
+    item.status === "In Progress" ? "selected" : ""
+}>In Progress</option>
                         <option value="Done" ${
-                          item.status === "Done" ? "selected" : ""
-                        }>Done</option>
+    item.status === "Done" ? "selected" : ""
+}>Done</option>
                     </select>
                 </td>
                 <td class="py-3 px-6 text-center">
@@ -203,8 +203,8 @@ const OrderListAdmin = {
                           <div>
                             <p class="font-medium text-sm text-gray-400"> Billed To </p>
                             <p> ${item.orderDetail.firstname} ${
-            item.orderDetail.lastname
-          }</p>
+    item.orderDetail.lastname
+}</p>
                             <p> ${item.orderDetail.email} </p>
                             <p> ${item.orderDetail.phone} </p>
                           </div>
@@ -237,8 +237,8 @@ const OrderListAdmin = {
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     ${item.orderDetail.item_list
-                      .map((pro) => {
-                        return /*html*/ `
+        .map((pro) => {
+            return /*html*/ `
                         <tr>
                             <td class="px-9 py-5 whitespace-nowrap space-x-1 flex items-center">
                                 <div>
@@ -250,8 +250,8 @@ const OrderListAdmin = {
                             <td class="whitespace-nowrap text-gray-600 truncate"> ${pro.price} </td>
                         </tr>
                         `;
-                      })
-                      .join("")}
+        })
+        .join("")}
                       
                       
                     </tbody>
@@ -273,8 +273,8 @@ const OrderListAdmin = {
                           <p class="font-bold text-black text-lg"> Amount Due </p>
                         </div>
                         <p class="font-bold text-black text-lg"> $${
-                          item.total
-                        } </p>
+    item.total
+} </p>
                       </div>
                     </div>
                   </div>
@@ -286,51 +286,51 @@ const OrderListAdmin = {
             </tr>
             
             `
-        )
-        .join("");
-    }
-    window.onload = () => {
-      const btn = document.querySelectorAll(".open-invoice");
-      const trdrop = document.querySelectorAll(".dropdowntr");
-      btn.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-          trdrop[index].classList.toggle("hidden");
-        });
-      });
-      // Change Status
-      const status = document.querySelectorAll(".status");
-      status.forEach((stat) => {
-        const id = stat.dataset.id;
-        stat.addEventListener("change", () => {
-          console.log(stat.value);
-          const confirm = window.confirm(
-            "You want to change this order status?"
-          );
-          if (confirm) {
-            update({
-              id,
-              status: stat.value,
+                )
+                .join("");
+        }
+        window.onload = () => {
+            const btn = document.querySelectorAll(".open-invoice");
+            const trdrop = document.querySelectorAll(".dropdowntr");
+            btn.forEach((btn, index) => {
+                btn.addEventListener("click", () => {
+                    trdrop[index].classList.toggle("hidden");
+                });
             });
-            reRender(OrderListAdmin, "#app");
-          }
-        });
-      });
+            // Change Status
+            const status = document.querySelectorAll(".status");
+            status.forEach((stat) => {
+                const id = stat.dataset.id;
+                stat.addEventListener("change", () => { 
+                    console.log(stat.value);
+                    const confirm = window.confirm(
+                        "You want to change this order status?"
+                    );
+                    if (confirm) {
+                        update({
+                            id,
+                            status: stat.value,
+                        });
+                        reRender(OrderListAdmin, "#app");
+                    }
+                });
+            });
 
-      // Delete Process
-      const buttons = document.querySelectorAll(".btn-delete");
-      buttons.forEach((btn) => {
-        const id = btn.dataset.id;
-        btn.addEventListener("click", () => {
-          const confirm = window.confirm("You want to delete this product?");
-          if (confirm) {
-            remove(id).then(() => {
-              toastr.success("Delete successfull");
-              reRender(Products, "#app");
+            // Delete Process
+            const buttons = document.querySelectorAll(".btn-delete");
+            buttons.forEach((btn) => {
+                const id = btn.dataset.id;
+                btn.addEventListener("click", () => {
+                    const confirm = window.confirm("You want to delete this product?");
+                    if (confirm) {
+                        remove(id).then(() => {
+                            toastr.success("Delete successfull");
+                            reRender(Products, "#app");
+                        });
+                    }
+                });
             });
-          }
-        });
-      });
-    };
-  },
+        };
+    },
 };
 export default OrderListAdmin;

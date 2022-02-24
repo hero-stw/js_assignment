@@ -1,5 +1,5 @@
 import NavDT from "./NavDesktop";
-import { countCart } from "../../../utils/api/interface";
+import { countCart, reRender } from "../../../utils/api/interface";
 const Heading = { 
     render() {
         return /*html*/ `
@@ -96,6 +96,19 @@ const Heading = {
                 </div>
             </div>
         `;
-    }
+    },
+    afterRender() {
+        if (localStorage.getItem("user")) {
+          const email = document.querySelector("#emailname");
+          const logout = document.querySelector("#logout");
+          const avatar = document.querySelector("#avatarUser");
+          email.innerHTML = JSON.parse(localStorage.getItem("user")).email;
+          avatar.src = JSON.parse(localStorage.getItem("user")).avatar;
+          logout.addEventListener("click", function () {
+              localStorage.removeItem("user");
+              reRender(Heading, "header");
+          });
+       }
+      }
 };
 export default Heading;

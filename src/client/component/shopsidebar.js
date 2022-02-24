@@ -1,6 +1,9 @@
+import axios from "axios";
+import ShopPage from "../shop";
+
 const ShopSideBar = {
-  render() {
-    return /*html*/ `
+    render() {
+        return /*html*/ `
             <div class="shop_sidebar_area">
 
                 <div class="widget catagory mb-50">
@@ -29,6 +32,6 @@ const ShopSideBar = {
                 </div>
             </div>
         `;
-  },
+    },
 };
 export default ShopSideBar;

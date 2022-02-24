@@ -171,20 +171,20 @@ var mapOptions = {
     scaleControl: false,
     disableDefaultUI: true,
     mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'gMap']
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, "gMap"]
     }
 };
 map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
 var geocoder_map = new google.maps.Geocoder();
-var address = 'London';
+var address = "London";
 geocoder_map.geocode({
-    'address': address
+    "address": address
 }, function (results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
             map: map,
-            icon: 'img/core-img/pin.png',
+            icon: "img/core-img/pin.png",
             position: map.getCenter()
         });
     } else {
@@ -194,5 +194,5 @@ geocoder_map.geocode({
 var mapType = new google.maps.StyledMapType(stylez, {
     name: "Grayscale"
 });
-map.mapTypes.set('gMap', mapType);
-map.setMapTypeId('gMap');
+map.mapTypes.set("gMap", mapType);
+map.setMapTypeId("gMap");

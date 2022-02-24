@@ -35,7 +35,7 @@ const MenuEdit = {
                                         <div class="p-6 space-y-6">
                                             <div class="grid grid-cols-6 gap-6">
                                             ${data.map(item => {
-                                                return /*html*/`
+        return /*html*/`
                                                 <div class="col-span-6 sm:col-span-3">
                                                     <label
                                                         for="user-name"
@@ -65,7 +65,7 @@ const MenuEdit = {
                                                     />
                                                 </div>
                                                 `;
-                                            }).join("")}
+    }).join("")}
                                                 
                                                 
                                         </div>

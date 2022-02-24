@@ -15,4 +15,4 @@ module.exports = {
         "eol-last": ["error", "never"],
         "linebreak-style": 0
     },
-}
+};

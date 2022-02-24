@@ -6,8 +6,8 @@ import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { reRender } from "../../utils/api/interface";
 const CateAdmin = {
-  render() {
-    return /*html*/ `
+    render() {
+        return /*html*/ `
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen}">
             ${AdminSideBar.render()}
             <div class="flex flex-col flex-1">
@@ -112,38 +112,38 @@ const CateAdmin = {
             </div>
         </div>
         `;
-  },
-  afterRender() {
+    },
+    afterRender() {
     // Get product
     // let params = new URLSearchParams(document.location.search);
     // let page = params.get("page");
     // let per_page = params.get("per_page");
     // console.log(page);
     // console.log(per_page);
-    axios({
-      url: "http://localhost:3500/catePros",
-      method: "GET",
-      responseType: "json",
-    })
-      .then((res) => {
-        showData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    function showData(response) {
-      const list = document.querySelector("#product-list");
-      list.innerHTML = response
-        .map(
-          (item) => /*html*/ `
+        axios({
+            url: "http://localhost:3500/catePros",
+            method: "GET",
+            responseType: "json",
+        })
+            .then((res) => {
+                showData(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        function showData(response) {
+            const list = document.querySelector("#product-list");
+            list.innerHTML = response
+                .map(
+                    (item) => /*html*/ `
                     <tr class="text-gray-700 dark:text-gray-400">             
                         <td class="px-4 py-3 text-sm flex items-center justify-between">
                         <input type="text" name="catename" class="catename" value="${
-                          item.name
-                        }" readonly/>
+    item.name
+}" readonly/>
                         <button class="save-btn hidden font-semibold leading-tight text-white bg-black rounded-full p-[0.5rem]" data-id="${
-                          item.id
-                        }">Save</button>
+    item.id
+}">Save</button>
                         </td>
                         <td class="px-4 py-3 text-xs">
                             <span
@@ -178,48 +178,48 @@ const CateAdmin = {
                 </tr>
                 
                 `
-        )
-        .join("");
-      const edits = document.querySelectorAll(".catename");
-      const savebtn = document.querySelectorAll(".save-btn");
-      edits.forEach((item) => {
-        item.addEventListener("click", () => {
-          item.removeAttribute("readonly");
-          item.focus();
-          item.nextElementSibling.classList.toggle("hidden");
-        });
-      });
-      savebtn.forEach((item) => {
-        item.addEventListener("click", () => {
-          const id = item.dataset.id;
-          update({
-            id,
-            name: item.previousElementSibling.value,
-          })
-            .then((result) => {
-              console.log(result.data);
-              toastr.success("Edit cate successfully");
-              reRender(CateAdmin, "#app");
-            })
-            .catch((error) => console.log(error));
-        });
-      });
-    }
-    const btnAdd = document.querySelector("#add-cate");
-    const edits = document.getElementsByTagName("tr");
+                )
+                .join("");
+            const edits = document.querySelectorAll(".catename");
+            const savebtn = document.querySelectorAll(".save-btn");
+            edits.forEach((item) => {
+                item.addEventListener("click", () => {
+                    item.removeAttribute("readonly");
+                    item.focus();
+                    item.nextElementSibling.classList.toggle("hidden");
+                });
+            });
+            savebtn.forEach((item) => {
+                item.addEventListener("click", () => {
+                    const id = item.dataset.id;
+                    update({
+                        id,
+                        name: item.previousElementSibling.value,
+                    })
+                        .then((result) => {
+                            console.log(result.data);
+                            toastr.success("Edit cate successfully");
+                            reRender(CateAdmin, "#app");
+                        })
+                        .catch((error) => console.log(error));
+                });
+            });
+        }
+        const btnAdd = document.querySelector("#add-cate");
+        const edits = document.getElementsByTagName("tr");
 
-    var today = new Date();
-    var date =
+        var today = new Date();
+        var date =
       today.getFullYear() +
       "-" +
       (today.getMonth() + 1) +
       "-" +
       today.getDate();
-    var time =
+        var time =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date + " " + time;
-    btnAdd.addEventListener("click", function () {
-      let template = /*html*/ `
+        var dateTime = date + " " + time;
+        btnAdd.addEventListener("click", function () {
+            let template = /*html*/ `
               <tr class="text-gray-700 dark:text-gray-400">             
                       <td class="px-4 py-3 text-sm flex items-center justify-between">
                           <input type="text" name="catename" class="catename" value="" data-id="${edits.length}"placeholder="Enter Catename" />
@@ -247,38 +247,38 @@ const CateAdmin = {
                       </td>
               </tr>
               `;
-      document.querySelector("#product-list").innerHTML += template;
-      let btnSave = document.querySelectorAll(".btn-save");
-      btnSave.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.dataset.id;
-          add({
-            name: document.querySelector("input[data-id='" + id + "']").value,
-            status: document.querySelector("#status").value,
-            date: dateTime,
-          })
-            .then((result) => {
-              console.log(result.data);
-              toastr.success("Add cate successfully");
-              reRender(CateAdmin, "#app");
-            })
-            .catch((error) => console.log(error));
+            document.querySelector("#product-list").innerHTML += template;
+            let btnSave = document.querySelectorAll(".btn-save");
+            btnSave.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const id = btn.dataset.id;
+                    add({
+                        name: document.querySelector("input[data-id='" + id + "']").value,
+                        status: document.querySelector("#status").value,
+                        date: dateTime,
+                    })
+                        .then((result) => {
+                            console.log(result.data);
+                            toastr.success("Add cate successfully");
+                            reRender(CateAdmin, "#app");
+                        })
+                        .catch((error) => console.log(error));
+                });
+            });
         });
-      });
-    });
-    const buttons = document.querySelectorAll(".btn-delete");
-    buttons.forEach((btn) => {
-      const id = btn.dataset.id;
-      btn.addEventListener("click", () => {
-        const confirm = window.confirm("You want to delete this category");
-        if (confirm) {
-          remove(id).then(() => {
-            toastr.success("Delete successfull");
-            reRender(CateAdmin, "#app");
-          });
-        }
-      });
-    });
-  },
+        const buttons = document.querySelectorAll(".btn-delete");
+        buttons.forEach((btn) => {
+            const id = btn.dataset.id;
+            btn.addEventListener("click", () => {
+                const confirm = window.confirm("You want to delete this category");
+                if (confirm) {
+                    remove(id).then(() => {
+                        toastr.success("Delete successfull");
+                        reRender(CateAdmin, "#app");
+                    });
+                }
+            });
+        });
+    },
 };
 export default CateAdmin;

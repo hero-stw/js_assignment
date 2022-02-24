@@ -1,14 +1,14 @@
 import { getAll } from "../../../utils/api/product";
 
 const ProductList = {
-  async render() {
-    const { data } = await getAll();
-    return /*html */ `
+    async render() {
+        const { data } = await getAll();
+        return /*html */ `
         <div class="products-catagories-area clearfix">
                 <div class="amado-pro-catagory clearfix" id="product-list">   
                     ${data
-                      .map(
-                        (pro) => `
+        .map(
+            (pro) => `
                         <div class="single-products-catagory clearfix">
                             <a href="products/${pro.id}">
                             <img src="${pro.image}" alt="" />
@@ -20,11 +20,11 @@ const ProductList = {
                             </a>
                         </div>
                     `
-                      )
-                      .join("")}
+        )
+        .join("")}
                 </div>
             </div>
         `;
-  },
+    },
 };
 export default ProductList;

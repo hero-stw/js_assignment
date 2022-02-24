@@ -270,6 +270,7 @@ const AdminHeader = {
             </div>
           </header>
         `;
-    }
+    },
+    
 };
 export default AdminHeader;

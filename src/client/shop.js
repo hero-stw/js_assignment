@@ -10,9 +10,10 @@ import $ from "jquery";
 import axios from "axios";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import ShopSideBar from "./component/ShopSideBar";
 const ShopPage = {
-  render() {
-    return /*html*/ `
+    render() {
+        return /*html*/ `
         <div id="search-container">
         ${Search.render()}
         </div>
@@ -108,47 +109,47 @@ const ShopPage = {
             ${NewsLetter.render()}
             ${Footer.render()}
         `;
-  },
-  afterRender() {
-    axios({
-      url: "http://localhost:3500/products",
-      method: "GET",
-      responseType: "json",
-    })
-      .then((res) => {
-        showProducts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    axios({
-      url: "http://localhost:3500/menus",
-      method: "GET",
-      responseType: "json",
-    })
-      .then((res) => {
-        showData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    function showData(response) {
-      const list = document.querySelector("#menu-list");
-      let params = window.location.pathname;
-      list.innerHTML = response
-        .map((item) => /*html*/ {
-          if (params.includes(item.title.toLowerCase))
-            return /*html*/ `<li class='active'><a href="${item.url}">${item.title}</a></li>`;
-          else
-            return /*html*/ `<li><a href="${item.url}">${item.title}</a></li>`;
+    },
+    afterRender() {
+        axios({
+            url: "http://localhost:3500/products?_page=2&_limit=5",
+            method: "GET",
+            responseType: "json",
         })
-        .join("");
-    }
-    function showProducts(response) {
-      const list = document.querySelector("#product-list");
-      list.innerHTML = response
-        .map(
-          (pro) => /*html*/ `
+            .then((res) => {
+                showProducts(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        axios({
+            url: "http://localhost:3500/menus",
+            method: "GET",
+            responseType: "json",
+        })
+            .then((res) => {
+                showData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        function showData(response) {
+            const list = document.querySelector("#menu-list");
+            let params = window.location.pathname;
+            list.innerHTML = response
+                .map((item) => /*html*/ {
+                    if (params.includes(item.title.toLowerCase))
+                        return /*html*/ `<li class='active'><a href="${item.url}">${item.title}</a></li>`;
+                    else
+                        return /*html*/ `<li><a href="${item.url}">${item.title}</a></li>`;
+                })
+                .join("");
+        }
+        function showProducts(response) {
+            const list = document.querySelector("#product-list");
+            list.innerHTML = response
+                .map(
+                    (pro) => /*html*/ `
             <!-- Single Product Area -->
             <div class="col-12 col-sm-6 col-md-12 col-xl-6">
                     <div class="single-product-wrapper">
@@ -188,77 +189,80 @@ const ShopPage = {
                 
             </div>
         `
-        )
-        .join("");
-    }
-    const btnAddTocart = document.querySelectorAll(".btn-add-cart");
-    btnAddTocart.forEach((btn) => {
-      const id = btn.dataset.id;
-      btn.addEventListener("click", async () => {
-        const { data } = await get(id);
-        addToCart({ ...data, quantity: 1 }, function () {
-          toastr.success("Add to cart successfully!");
+                )
+                .join("");
+        }
+        axios({
+            url: " http://localhost:3500/catePros",
+            method: "GET",
+            responseType: "json",
+        })
+        .then((res) => {
+            document.querySelector("#catelist").innerHTML = res.data
+                .map((item, index) => {
+                    if(item.status !=0) {
+                        if (index == 0)
+                            return /*html*/ `
+                <li data-id="${item.id}" class="cateitem active"><a href="#">${item.name}</a></li>
+            `;
+                        else
+                            return /*html*/ `
+                <li data-id="${item.id}" class="cateitem"><a href="#">${item.name}</a></li>
+            `;
+                    }
+                })
+                .join("");
+                let cateitems = document.querySelectorAll(".cateitem");
+                console.log(cateitems);
+                cateitems.forEach(item => {
+                    item.addEventListener("click", ()=> {
+                        const id = item.dataset.id;
+                            console.log(id);
+                        axios({
+                            url: " http://localhost:3500/products?_expand=catePro",
+                            method: "GET",
+                            responseType: "json",
+                        }).then((res)=> {
+                            console.log(res.data);
+                            let arr = res.data.filter(cate => 
+                                cate.cateProId == id
+                            )
+                            showProducts(arr);
+                        });
+                    });
+                });
+        })
+        .catch((error) => {
+            console.log(error);
         });
-        reRender(ShopPage, "#app");
-      });
-    });
-    axios({
-      url: " http://localhost:3500/catePros",
-      method: "GET",
-      responseType: "json",
-    })
-      .then((res) => {
-        document.querySelector("#catelist").innerHTML = res.data
-          .map((item, index) => {
-            if(item.status !=0) {
-              if (index == 0)
-              return /*html*/ `
-                    <li class="cateitem active"><a href="#">${item.name}</a></li>
-                `;
-            else
-              return /*html*/ `
-                    <li class="cateitem"><a href="#">${item.name}</a></li>
-                `;
-            }
-          })
-          .join("");
-          filter(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      function filter(response) {
-        
-      }
-    if (localStorage.getItem("user")) {
-      const email = document.querySelector("#emailname");
-      const logout = document.querySelector("#logout");
-      const avatar = document.querySelector("#avatarUser");
-      email.innerHTML = JSON.parse(localStorage.getItem("user")).email;
-      avatar.src = JSON.parse(localStorage.getItem("user")).avatar;
-      logout.addEventListener("click", function () {
-        localStorage.removeItem("user");
-        reRender(Heading, "header");
-      });
-    }
-    $(document).ready(function () {
-      let cateitem = document.querySelectorAll(".cateitem");
-      console.log(cateitem);
-      $(".slider-range-price").each(function () {
-        var min = jQuery(this).data("min");
-        var max = jQuery(this).data("max");
-        var unit = jQuery(this).data("unit");
-        var value_min = jQuery(this).data("value-min");
-        var value_max = jQuery(this).data("value-max");
-        var label_result = jQuery(this).data("label-result");
-        var t = $(this);
-        $(this).slider({
-          range: true,
-          min: min,
-          max: max,
-          values: [value_min, value_max],
-          slide: function (event, ui) {
-            var result =
+        const btnAddTocart = document.querySelectorAll(".btn-add-cart");
+        btnAddTocart.forEach((btn) => {
+            const id = btn.dataset.id;
+            btn.addEventListener("click", async () => {
+                const { data } = await get(id);
+                addToCart({ ...data, quantity: 1 }, function () {
+                    toastr.success("Add to cart successfully!");
+                });
+                reRender(ShopPage, "#app");
+            });
+        });
+        $(document).ready(function () {
+            
+            $(".slider-range-price").each(function () {
+                var min = jQuery(this).data("min");
+                var max = jQuery(this).data("max");
+                var unit = jQuery(this).data("unit");
+                var value_min = jQuery(this).data("value-min");
+                var value_max = jQuery(this).data("value-max");
+                var label_result = jQuery(this).data("label-result");
+                var t = $(this);
+                $(this).slider({
+                    range: true,
+                    min: min,
+                    max: max,
+                    values: [value_min, value_max],
+                    slide: function (event, ui) {
+                        var result =
               label_result +
               " " +
               unit +
@@ -266,31 +270,14 @@ const ShopPage = {
               " - " +
               unit +
               ui.values[1];
-            t.closest(".slider-range").find(".range-price").html(result);
-          },
+                        t.closest(".slider-range").find(".range-price").html(result);
+                    },
+                });
+            });
+            
         });
-      });
-      var amadoSearch = $(".search-nav");
-      var searchClose = $(".search-close");
-
-      amadoSearch.on("click", function () {
-        $("#app").toggleClass("search-wrapper-on");
-      });
-
-      searchClose.on("click", function () {
-        $("#app").removeClass("search-wrapper-on");
-      });
-      var amadoMobNav = $(".amado-navbar-toggler");
-      var navClose = $(".nav-close");
-
-      amadoMobNav.on("click", function () {
-        $(".header-area").toggleClass("bp-xs-on");
-      });
-
-      navClose.on("click", function () {
-        $(".header-area").removeClass("bp-xs-on");
-      });
-    });
-  },
+        Search.afterRender();
+        Heading.afterRender();
+    },
 };
 export default ShopPage;

@@ -22,85 +22,85 @@ import ShopPage from "../src/client/shop";
 const router = new Navigo("/", { linksSelector: "a", hash: true });
 
 const print = async (content, id) => {
-  document.getElementById("app").innerHTML = await content.render(id);
-  if (content.afterRender) content.afterRender(id);
+    document.getElementById("app").innerHTML = await content.render(id);
+    if (content.afterRender) content.afterRender(id);
 };
 router.on("/admin/*", () => {}, {
-  before(done, match) {
-    if (JSON.parse(localStorage.getItem("user"))) {
-      const role = JSON.parse(localStorage.getItem("user")).role;
-      if (role == 1) {
-        done();
-      } else {
-        document.location.href = "/";
-      }
-    } else {
-      document.location.href = "/";
-    }
-  },
+    before(done, match) {
+        if (JSON.parse(localStorage.getItem("user"))) {
+            const role = JSON.parse(localStorage.getItem("user")).role;
+            if (role == 1) {
+                done();
+            } else {
+                document.location.href = "/";
+            }
+        } else {
+            document.location.href = "/";
+        }
+    },
 });
 router.on("/account/*", () => {}, {
-  before(done, match) {
-    if (JSON.parse(localStorage.getItem("user"))) {
-      done();
-    } else {
-      document.location.href = "/";
-    }
-  },
+    before(done, match) {
+        if (JSON.parse(localStorage.getItem("user"))) {
+            done();
+        } else {
+            document.location.href = "/";
+        }
+    },
 });
 router.on({
-  "/": () => {
-    print(HomePage);
-  },
-  "/signin": () => {
-    print(SignIn);
-  },
-  "/signup": () => {
-    print(SignUp);
-  },
-  "/shop": () => {
-    print(ShopPage);
-  },
-  "/products": () => {
-    print(ProductDetail);
-  },
-  "/products/:id": (value) => {
-    print(ProductDetail, value.data.id);
-  },
-  "/cart": () => {
-    print(CartPage);
-  },
-  "/checkout": () => {
-    print(CheckoutPage);
-  },
-  "/account": () => {
-    print(AccountPage);
-  },
-  "/account/orders": () => {
-    print(ClientOrder);
-  },
-  "admin/dashboard/": () => {
-    print(Products);
-  },
-  "admin/dashboard/users": () => {
-    print(Users);
-  },
-  "admin/dashboard/categories": () => {
-    print(CateAdmin);
-  },
-  "admin/dashboard/addproduct": () => {
-    print(AddProduct);
-  },
-  "admin/dashboard/adduser": () => {
-    print(AddUser);
-  },
-  "admin/dashboard/menu": () => {
-    print(MenuEdit);
-  },
-  "admin/dashboard/orders": () => {
-    print(OrderListAdmin);
-  },
-  "/admin/products/:id/edit": ({ data }) => print(AdminEditPage, data.id),
-  "/admin/users/:id/edit": ({ data }) => print(AdminEditUser, data.id),
+    "/": () => {
+        print(HomePage);
+    },
+    "/signin": () => {
+        print(SignIn);
+    },
+    "/signup": () => {
+        print(SignUp);
+    },
+    "/shop": () => {
+        print(ShopPage);
+    },
+    "/products": () => {
+        print(ProductDetail);
+    },
+    "/products/:id": (value) => {
+        print(ProductDetail, value.data.id);
+    },
+    "/cart": () => {
+        print(CartPage);
+    },
+    "/checkout": () => {
+        print(CheckoutPage);
+    },
+    "/account": () => {
+        print(AccountPage);
+    },
+    "/account/orders": () => {
+        print(ClientOrder);
+    },
+    "admin/dashboard/": () => {
+        print(Products);
+    },
+    "admin/dashboard/users": () => {
+        print(Users);
+    },
+    "admin/dashboard/categories": () => {
+        print(CateAdmin);
+    },
+    "admin/dashboard/addproduct": () => {
+        print(AddProduct);
+    },
+    "admin/dashboard/adduser": () => {
+        print(AddUser);
+    },
+    "admin/dashboard/menu": () => {
+        print(MenuEdit);
+    },
+    "admin/dashboard/orders": () => {
+        print(OrderListAdmin);
+    },
+    "/admin/products/:id/edit": ({ data }) => print(AdminEditPage, data.id),
+    "/admin/users/:id/edit": ({ data }) => print(AdminEditUser, data.id),
 });
 router.resolve();

@@ -57,29 +57,29 @@ const SignUp = {
       
       </section>
         
-        `
+        `;
     },
     afterRender() {
-      const formSignup = document.querySelector("#formSignup");
-      formSignup.addEventListener("submit", (e) => {
-        e.preventDefault();
-        var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var dateTime = date+' '+time;
-        signup({
-          username: document.querySelector("#email").value,
-          email: document.querySelector("#email").value,
-          password: document.querySelector("#password").value,
-          avatar: "https://source.unsplash.com/random/?avatar",
-          phone: "Not have yet",
-          name: "User Default",
-          role: 0,
-          date: dateTime
-        });
-        window.location.href="/#/";
+        const formSignup = document.querySelector("#formSignup");
+        formSignup.addEventListener("submit", (e) => {
+            e.preventDefault();
+            var today = new Date();
+            var date = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var dateTime = date+" "+time;
+            signup({
+                username: document.querySelector("#email").value,
+                email: document.querySelector("#email").value,
+                password: document.querySelector("#password").value,
+                avatar: "https://source.unsplash.com/random/?avatar",
+                phone: "Not have yet",
+                name: "User Default",
+                role: 0,
+                date: dateTime
+            });
+            window.location.href="/#/";
         
-      });
+        });
     },
-}
+};
 export default SignUp;
